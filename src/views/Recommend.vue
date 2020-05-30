@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 16:55:29
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 21:02:33
+ * @LastEditTime: 2020-05-30 23:19:37
 -->
 <template>
   <div class="recommend">
@@ -13,11 +13,15 @@
         <Personalized
           :personalized="personalized"
           :title="'推荐歌单'"
+          @select="fatherSelectItem"
         ></Personalized>
         <Personalized :personalized="albums" :title="'最新专辑'"></Personalized>
         <SongList :songs="songs"></SongList>
       </div>
     </ScrollView>
+    <transition>
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -56,7 +60,7 @@ export default {
     // 获取推荐歌单数据
     getPersonalized()
       .then(data => {
-        // console.log(data.result)
+        console.log(data.result)
         this.personalized = data.result
       })
       .catch(err => {
@@ -81,6 +85,16 @@ export default {
         console.log(err)
       })
   },
+  methods: {
+    /**
+     * @description: 跳转到详情页
+     */
+    fatherSelectItem(id) {
+      this.$router.push({
+        path: `recommend/detail/${id}`
+      })
+    }
+  },
   components: {
     Banner,
     Personalized,
@@ -96,5 +110,24 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
+}
+.v-enter {
+  transform: translateX(100%);
+}
+.v-enter-to {
+  transform: translateX(0%);
+}
+.v-enter-active {
+  transition: all 0.5s;
+}
+.v-leave {
+  transform: translateX(0%);
+}
+.v-leave-to {
+  transform: translateX(100%);
+}
+.v-leave-active {
+  transition: all 0.5s;
 }
 </style>

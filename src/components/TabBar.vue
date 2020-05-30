@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 15:33:08
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 18:38:58
+ * @LastEditTime: 2020-05-30 15:55:00
 -->
 <template>
   <div class="tabbar">
@@ -30,8 +30,8 @@ export default {}
 @import '../assets/css/variable.scss';
 @import '../assets/css/mixin.scss';
 .tabbar {
-  position: relative;
-  z-index: 999;
+  // position: relative;
+  // z-index: 999;
   width: 100%;
   height: 84px;
   @include bg_sub_color();

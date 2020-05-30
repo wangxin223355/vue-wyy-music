@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 12:49:58
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 09:07:02
+ * @LastEditTime: 2020-05-30 15:52:11
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -17,12 +17,23 @@ const Rank = () =>
   import(/* webpackChunkName: "group-foo" */ '../views/Rank.vue')
 const Search = () =>
   import(/* webpackChunkName: "group-foo" */ '../views/Search.vue')
+const Detail = () =>
+  import(/* webpackChunkName: "group-foo" */ '../views/Detail.vue')
 
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: '/recommend' },
-  { path: '/recommend', component: Recommend },
+  {
+    path: '/recommend',
+    component: Recommend,
+    children: [
+      {
+        path: 'detail/:id',
+        component: Detail
+      }
+    ]
+  },
   { path: '/singer', component: Singer },
   { path: '/rank', component: Rank },
   { path: '/search', component: Search }

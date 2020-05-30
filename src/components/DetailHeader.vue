@@ -1,21 +1,21 @@
 <!--
- * @Description: 头部组件
+ * @Description: 歌单详情头部组件
  * @Autor: wangxin
  * @Date: 2020-05-28 13:57:42
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 15:54:50
+ * @LastEditTime: 2020-05-30 22:39:26
 -->
 <template>
   <div class="header" @click="changeTheme">
-    <div class="header-left"></div>
-    <p class="header-title">网易云音乐</p>
+    <div class="header-left" @click.stop="back"></div>
+    <p class="header-title">{{ title }}</p>
     <div class="header-right"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header',
+  name: 'DetailHeader',
   data() {
     return {
       // 换肤主题
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     /**
-     * @description: 点击头部实现换肤效果
+     * @description: 实现换肤效果
      */
     changeTheme() {
       this.currentThemesIndex++
@@ -37,6 +37,19 @@ export default {
         'data-theme',
         this.themes[this.currentThemesIndex]
       )
+    },
+    /**
+     * @description: 回到上一页
+     */
+    back() {
+      this.$router.go(-1)
+    }
+  },
+  props: {
+    title: {
+      type: String,
+      default: '',
+      required: true
     }
   }
 }
@@ -46,8 +59,8 @@ export default {
 @import '../assets/css/variable.scss';
 @import '../assets/css/mixin.scss';
 .header {
-  // position: relative;
-  // z-index: 999;
+  position: relative;
+  z-index: 999;
   width: 100%;
   height: 100px;
   /* @include 指令可以将混入（mixin）引入到文档中 实现了换肤效果 */
@@ -62,11 +75,11 @@ export default {
   }
   .header-left {
     /* 自动获取图片 */
-    @include bg_img('../assets/images/logo');
+    @include bg_img('../assets/images/back');
   }
   .header-right {
     /* 自动获取图片 */
-    @include bg_img('../assets/images/account');
+    @include bg_img('../assets/images/more');
   }
   .header-title {
     text-align: center;
@@ -75,6 +88,7 @@ export default {
     font-weight: 700;
     /* 设置字体大小 不会随着屏幕的变化而变化 */
     @include font_size($font_medium);
+    @include no-wrap();
   }
 }
 </style>

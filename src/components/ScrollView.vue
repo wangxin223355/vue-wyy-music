@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-29 18:15:35
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 20:59:41
+ * @LastEditTime: 2020-05-30 22:25:55
 -->
 <template>
   <div id="wrapper" ref="wrapper">
@@ -23,7 +23,8 @@ export default {
      */
     this.iscroll = new IScroll(this.$refs.wrapper, {
       mouseWheel: true,
-      scrollbars: true,
+      scrollbars: false,
+      probeType: 3,
       // 解决拖拽卡顿问题
       scrollX: false,
       scrollY: true,
@@ -41,9 +42,9 @@ export default {
     参数2：observer 观察者对象
     */
     const observer = new MutationObserver((mutationList, observer) => {
-      console.log(this.iscroll.maxScrollY)
-      this.iscroll.refresh()
-      console.log(this.iscroll.maxScrollY)
+      // console.log(this.iscroll.maxScrollY)
+      this.iscroll.refresh() // 刷新滚动
+      // console.log(this.iscroll.maxScrollY)
     })
     // 2.告诉观察者对象我们需要什么内容
     const config = {
@@ -57,6 +58,18 @@ export default {
     参数2：告诉观察者对象我们需要观察什么内容
     */
     observer.observe(this.$refs.wrapper, config)
+  },
+  methods: {
+    /**
+     * @description: 提供一个监听滚动距离的方法给外界使用
+     * @param {Function} 回调函数
+     * @return: {Function} 返回的偏移量
+     */
+    scrolling(fn) {
+      this.iscroll.on('scroll', () => {
+        fn(this.iscroll.y)
+      })
+    }
   }
 }
 </script>
