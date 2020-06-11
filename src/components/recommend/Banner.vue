@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-29 09:43:35
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 17:23:23
+ * @LastEditTime: 2020-06-07 11:28:10
 -->
 <template>
   <div>
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      /* swiper轮播图配置 */
+      // swiper轮播图配置
       swiperOptions: {
         pagination: {
           // 如果需要分页器
@@ -77,7 +77,7 @@ export default {
 }
 </style>
 <style lang="scss">
-@import '../assets/css/mixin.scss';
+@import '../../assets/css/mixin.scss';
 /* 如果想覆盖swiper样式 style样式标签不能有scoped属性 */
 .banner {
   /* 分页器样式设置 */

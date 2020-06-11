@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-30 15:18:20
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 22:45:42
+ * @LastEditTime: 2020-06-07 11:25:03
 -->
 <template>
   <div class="detail">
@@ -18,29 +18,31 @@
 </template>
 
 <script>
-import DetailHeader from '../components/DetailHeader'
-import DetailTop from '../components/DetailTop'
-import DetailBottom from '../components/DetailBottom'
+import DetailHeader from '../components/detail/DetailHeader'
+import DetailTop from '../components/detail/DetailTop'
+import DetailBottom from '../components/detail/DetailBottom'
 import ScrollView from '../components/ScrollView'
 
-import { getPlayList } from '../api/index'
+import { getPlayList, getAlbum } from '../api/index'
 export default {
   name: 'Detail',
   data() {
     return {
-      // 歌单详情页数据
-      playlist: []
+      playlist: {}
     }
   },
   mounted() {
+    // 下拉上拉修改背景图片状态
     const defaultHeight = this.$refs.top.$el.offsetHeight
-    // console.log(defaultHeight)
-    // 获取偏移位
+    // 获取偏移量
     this.$refs.scrollView.scrolling(offsetY => {
       if (offsetY < 0) {
         // console.log('向上滚动')
-        const scale = (20 * Math.abs(offsetY)) / defaultHeight // 得到一个越来越大的值
-        this.$refs.top.$el.style.filter = `blur(${scale}px)`
+        // const scale = (20 * Math.abs(offsetY)) / defaultHeight // 得到一个越来越大的值
+        // this.$refs.top.$el.style.filter = `blur(${scale}px)` 高斯模糊耗费性能 移动端建议不用
+        // 采用添加蒙版的方式
+        const scale = Math.abs(offsetY) / defaultHeight
+        this.$refs.top.changeMask(scale)
       } else {
         // console.log('向下滚动')
         const scale = 1 + offsetY / defaultHeight // 逐渐越来越大于1
@@ -49,15 +51,30 @@ export default {
     })
   },
   created() {
-    // 获取歌单详情
-    getPlayList({ id: this.$route.params.id })
-      .then(data => {
-        // console.log(data.playlist)
-        this.playlist = data.playlist
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    // 获取歌单详情内容
+    if (this.$route.params.type === 'personalized') {
+      getPlayList({ id: this.$route.params.id })
+        .then(data => {
+          // console.log(data.playlist)
+          this.playlist = data.playlist
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    } else if (this.$route.params.type === 'albums') {
+      getAlbum({ id: this.$route.params.id })
+        .then(data => {
+          // console.log(data)
+          this.playlist = {
+            name: data.album.name,
+            coverImgUrl: data.album.picUrl,
+            tracks: data.songs
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   components: {
     DetailHeader,

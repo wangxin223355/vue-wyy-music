@@ -3,12 +3,12 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 13:57:42
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 15:54:50
+ * @LastEditTime: 2020-06-07 11:34:24
 -->
 <template>
   <div class="header" @click="changeTheme">
     <div class="header-left"></div>
-    <p class="header-title">网易云音乐</p>
+    <p class="header-title">网易鱼音乐</p>
     <div class="header-right"></div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     /**
-     * @description: 点击头部实现换肤效果
+     * @description: 头部换肤
      */
     changeTheme() {
       this.currentThemesIndex++

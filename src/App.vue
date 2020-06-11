@@ -3,29 +3,27 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 12:49:58
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-29 18:38:19
+ * @LastEditTime: 2020-06-01 20:10:35
 -->
 <template>
   <div id="app">
     <Header></Header>
     <tab-bar></tab-bar>
     <router-view></router-view>
+    <Player></Player>
   </div>
 </template>
 <script>
 import Header from './components/Header'
 import TabBar from './components/TabBar'
+import Player from './views/Player'
 
 export default {
   name: 'App',
-  methods: {
-    // myFn(data) {
-    //   document.documentElement.setAttribute('data-theme', data)
-    // }
-  },
   components: {
     Header,
-    TabBar
+    TabBar,
+    Player
   }
 }
 </script>

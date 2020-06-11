@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-29 15:08:55
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 14:46:14
+ * @LastEditTime: 2020-06-05 17:04:49
 -->
 <template>
   <div class="songs">
@@ -11,7 +11,12 @@
       <h3>最新音乐</h3>
     </div>
     <ul class="song-list">
-      <li v-for="item in songs" :key="item.id" class="item">
+      <li
+        v-for="item in songs"
+        :key="item.id"
+        class="item"
+        @click="selectMusic"
+      >
         <img v-lazy="item.song.album.picUrl" alt="" />
         <div>
           <h3>{{ item.name }}</h3>
@@ -23,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'SongList',
   props: {
@@ -33,13 +39,19 @@ export default {
       },
       required: true
     }
+  },
+  methods: {
+    ...mapActions(['setFullScreen']),
+    selectMusic() {
+      this.setFullScreen(true)
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import '../assets/css/mixin.scss';
-@import '../assets/css/variable.scss';
+@import '../../assets/css/variable.scss';
+@import '../../assets/css/mixin.scss';
 .songs {
   @include bg_sub_color();
   .song-top {

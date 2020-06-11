@@ -3,12 +3,13 @@
  * @Autor: wangxin
  * @Date: 2020-05-30 17:06:45
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 17:12:12
+ * @LastEditTime: 2020-06-01 16:37:25
 -->
 <template>
   <div class="detail-top">
     <div class="img-container">
       <img :src="path" alt="" />
+      <div class="mask" ref="mask"></div>
     </div>
   </div>
 </template>
@@ -22,6 +23,15 @@ export default {
       default: '',
       required: true
     }
+  },
+  methods: {
+    /**
+     * @description: 改变蒙版的透明度
+     * @param {Number} opacity 透明度值
+     */
+    changeMask(opacity) {
+      this.$refs.mask.style.opacity = opacity
+    }
   }
 }
 </script>
@@ -31,8 +41,18 @@ export default {
   width: 100%;
   height: 500px;
   overflow: hidden;
+  position: relative;
   img {
     width: 100%;
+  }
+  .mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

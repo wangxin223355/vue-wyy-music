@@ -74,7 +74,6 @@
     border-color: $border-color-theme2;
   }
 }
-// 根据传入的url更换不同主题图片
 @mixin bg_img($url) {
   [data-theme='theme'] & {
     background-image: url($url+'_163.png');

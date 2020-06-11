@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 13:57:42
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 22:39:26
+ * @LastEditTime: 2020-06-01 20:14:57
 -->
 <template>
   <div class="header" @click="changeTheme">
@@ -56,8 +56,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/variable.scss';
-@import '../assets/css/mixin.scss';
+@import '../../assets/css/variable.scss';
+@import '../../assets/css/mixin.scss';
 .header {
   position: relative;
   z-index: 999;
@@ -75,11 +75,11 @@ export default {
   }
   .header-left {
     /* 自动获取图片 */
-    @include bg_img('../assets/images/back');
+    @include bg_img('../../assets/images/back');
   }
   .header-right {
     /* 自动获取图片 */
-    @include bg_img('../assets/images/more');
+    @include bg_img('../../assets/images/more');
   }
   .header-title {
     text-align: center;

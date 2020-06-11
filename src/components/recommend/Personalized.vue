@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-29 14:06:35
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 23:31:14
+ * @LastEditTime: 2020-06-07 11:32:49
 -->
 <template>
   <div class="personalized">
@@ -42,21 +42,28 @@ export default {
       type: String,
       default: '',
       required: true
+    },
+    type: {
+      type: String,
+      default: '',
+      required: true
     }
   },
   methods: {
-    // 监听歌单的点击事件
+    /**
+     * @description: 传递触发事件的id
+     * @param {Number} id id
+     */
     selectItem(id) {
-      // console.log(id)
-      this.$emit('select', id)
+      this.$emit('select', id, this.type)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import '../assets/css/mixin.scss';
-@import '../assets/css/variable.scss';
+@import '../../assets/css/variable.scss';
+@import '../../assets/css/mixin.scss';
 .personalized {
   @include bg_sub_color();
   .personalized-top {

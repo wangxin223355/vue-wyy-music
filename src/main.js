@@ -1,9 +1,9 @@
 /*
- * @Description:
+ * @Description: 项目入口
  * @Autor: wangxin
  * @Date: 2020-05-28 12:49:58
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 23:56:43
+ * @LastEditTime: 2020-06-07 11:17:28
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -13,6 +13,7 @@ import fastclick from 'fastclick'
 import './assets/css/base.scss'
 import VueLazyload from 'vue-lazyload'
 
+// 注册懒加载事件并导入loading时背景图片
 Vue.use(VueLazyload, {
   loading: require('./assets/images/loading2.png')
 })

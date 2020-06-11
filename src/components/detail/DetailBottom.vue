@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-30 17:22:25
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 21:47:25
+ * @LastEditTime: 2020-06-07 11:02:05
 -->
 <template>
   <ul class="detail-bottom">
@@ -11,7 +11,12 @@
       <div class="bottom-icon"></div>
       <div class="bottom-title">播放全部</div>
     </li>
-    <li class="item" v-for="item in playList" :key="item.id">
+    <li
+      class="item"
+      v-for="item in playList"
+      :key="item.id"
+      @click="selectMusic"
+    >
       <h3>{{ item.name }}</h3>
       <p>{{ item.al.name }} - {{ item.ar[0].name }}</p>
     </li>
@@ -19,6 +24,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'DetailBottom',
   props: {
@@ -29,13 +35,24 @@ export default {
       },
       required: true
     }
+  },
+  methods: {
+    ...mapActions(['setFullScreen']),
+
+    /**
+     * @description: 显示默认播放器
+     */
+    selectMusic() {
+      // this.$store.dispatch('setFullScreen', true)
+      this.setFullScreen(true)
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
-@import '../assets/css/variable.scss';
-@import '../assets/css/mixin.scss';
+@import '../../assets/css/variable.scss';
+@import '../../assets/css/mixin.scss';
 
 .detail-bottom {
   width: 100%;
@@ -55,7 +72,7 @@ export default {
     .bottom-icon {
       width: 60px;
       height: 60px;
-      @include bg_img('../assets/images/small_play');
+      @include bg_img('../../assets/images/small_play');
       margin-right: 20px;
     }
     .bottom-title {

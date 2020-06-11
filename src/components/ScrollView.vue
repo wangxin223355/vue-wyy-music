@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-29 18:15:35
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 22:25:55
+ * @LastEditTime: 2020-06-07 11:26:22
 -->
 <template>
   <div id="wrapper" ref="wrapper">
@@ -18,11 +18,9 @@ import IScroll from 'iscroll/build/iscroll-probe'
 export default {
   name: 'ScrollView',
   mounted() {
-    /**
-     * @description: 初始化iscroll配置
-     */
+    // 初始化iscroll配置
     this.iscroll = new IScroll(this.$refs.wrapper, {
-      mouseWheel: true,
+      mouseWheel: false,
       scrollbars: false,
       probeType: 3,
       // 解决拖拽卡顿问题
@@ -32,9 +30,8 @@ export default {
       disableTouch: false,
       disableMouse: true
     })
-    /**
-     * @description: 创建观察者对象监听滚动高度
-     */
+
+    // 创建观察者对象监听滚动高度
     // 1.创建一个观察者对象
     /*
     MutationObserver构造函数只要监听到了指定内容发生了变化，就会执行传入的回调函数
@@ -62,7 +59,7 @@ export default {
   methods: {
     /**
      * @description: 提供一个监听滚动距离的方法给外界使用
-     * @param {Function} 回调函数
+     * @param {Function} fn 回调函数
      * @return: {Function} 返回的偏移量
      */
     scrolling(fn) {

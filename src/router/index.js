@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 12:49:58
  * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 15:52:11
+ * @LastEditTime: 2020-06-01 17:41:58
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -29,7 +29,7 @@ const routes = [
     component: Recommend,
     children: [
       {
-        path: 'detail/:id',
+        path: 'detail/:id/:type',
         component: Detail
       }
     ]
