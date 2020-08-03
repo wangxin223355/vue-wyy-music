@@ -2,8 +2,8 @@
  * @Description: 滚动组件
  * @Autor: wangxin
  * @Date: 2020-05-29 18:15:35
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:26:22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 12:28:15
 -->
 <template>
   <div id="wrapper" ref="wrapper">
@@ -66,6 +66,14 @@ export default {
       this.iscroll.on('scroll', () => {
         fn(this.iscroll.y)
       })
+    },
+    /**
+     * 延迟刷新高度
+     */
+    refresh() {
+      setTimeout(() => {
+        this.iscroll.refresh()
+      }, 100)
     }
   }
 }

@@ -3,21 +3,21 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 13:57:42
  * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:00:59
+ * @LastEditTime: 2020-06-11 21:36:46
 -->
 <template>
   <div class="header">
     <div class="header-left" @click="hiddenNormalPlayer"></div>
     <div class="header-title">
-      <h3>演员</h3>
-      <p>薛之谦</p>
+      <h3>{{ currentSong.name }}</h3>
+      <p>{{ currentSong.singer }}</p>
     </div>
     <div class="header-right"></div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'PlayerHeader',
   methods: {
@@ -30,6 +30,9 @@ export default {
       this.setFullScreen(false)
       this.setMiniPlayer(true)
     }
+  },
+  computed: {
+    ...mapGetters(['currentSong'])
   }
 }
 </script>

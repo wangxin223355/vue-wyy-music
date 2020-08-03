@@ -2,12 +2,12 @@
  * @Description: 歌单详情歌曲列表组件
  * @Autor: wangxin
  * @Date: 2020-05-30 17:22:25
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:02:05
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 12:31:53
 -->
 <template>
   <ul class="detail-bottom">
-    <li class="bottom-top">
+    <li class="bottom-top" @click="selectAllMusic">
       <div class="bottom-icon"></div>
       <div class="bottom-title">播放全部</div>
     </li>
@@ -15,7 +15,7 @@
       class="item"
       v-for="item in playList"
       :key="item.id"
-      @click="selectMusic"
+      @click="selectMusic(item.id)"
     >
       <h3>{{ item.name }}</h3>
       <p>{{ item.al.name }} - {{ item.ar[0].name }}</p>
@@ -37,14 +37,25 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setFullScreen']),
+    ...mapActions(['setFullScreen', 'getSongDeatil']),
 
     /**
      * @description: 显示默认播放器
      */
-    selectMusic() {
+    selectMusic(id) {
       // this.$store.dispatch('setFullScreen', true)
       this.setFullScreen(true)
+      this.getSongDeatil([id])
+    },
+    /**
+     * 播放全部
+     */
+    selectAllMusic() {
+      this.setFullScreen(true)
+      const ids = this.playList.map(item => {
+        return item.id
+      })
+      this.getSongDeatil([ids])
     }
   }
 }

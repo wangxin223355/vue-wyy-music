@@ -1,15 +1,9 @@
-<!--
- * @Description: 播放器页面
- * @Autor: wangxin
- * @Date: 2020-06-01 19:56:47
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-04 16:01:39
--->
 <template>
   <div class="player">
-    <NormalPlayer></NormalPlayer>
-    <MiniPlayer @showList="showList"></MiniPlayer>
+    <NormalPlayer :totalTime="totalTime"></NormalPlayer>
+    <MiniPlayer></MiniPlayer>
     <ListPlayer ref="listPlayer"></ListPlayer>
+    <audio :src="currentSong.url" ref="audio"></audio>
   </div>
 </template>
 
@@ -17,17 +11,45 @@
 import NormalPlayer from '../components/player/NormalPlayer'
 import MiniPlayer from '../components/player/MiniPlayer'
 import ListPlayer from '../components/player/ListPlayer'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Player',
-  methods: {
-    showList() {
-      this.$refs.listPlayer.show()
+  computed: {
+    ...mapGetters(['currentSong', 'isPlaying', 'currentIndex'])
+  },
+  watch: {
+    isPlaying(newValue, oldValue) {
+      if (newValue) {
+        this.$refs.audio.play()
+      } else {
+        this.$refs.audio.pause()
+      }
+    },
+    currentIndex() {
+      this.$refs.audio.oncanplay = () => {
+        if (this.isPlaying) {
+          this.$refs.audio.play()
+        } else {
+          this.$refs.audio.pause()
+        }
+      }
     }
   },
   components: {
     NormalPlayer,
     MiniPlayer,
     ListPlayer
+  },
+  data() {
+    return {
+      totalTime: 0
+    }
+  },
+  mounted() {
+    this.$refs.audio.oncanplay = () => {
+      this.totalTime = this.$refs.audio.duration
+    }
   }
 }
 </script>

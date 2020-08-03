@@ -2,12 +2,12 @@
  * @Description: 播放列表组件
  * @Autor: wangxin
  * @Date: 2020-06-04 15:11:42
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-10 16:37:22
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 19:06:05
 -->
 <template>
   <transition v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
-    <div class="list-player" v-show="isShow">
+    <div class="list-player" v-show="isShowListPlayer">
       <div class="player-warpper">
         <div class="play-top">
           <div class="top-left">
@@ -17,40 +17,29 @@
             <p v-else-if="this.modeType == 2">随机播放</p>
           </div>
           <div class="top-right">
-            <div class="del"></div>
+            <div class="del" @click="delAll"></div>
           </div>
         </div>
         <div class="play-middle">
-          <ScrollView>
-            <ul>
-              <li class="item">
+          <ScrollView ref="scrollView">
+            <ul ref="play">
+              <li
+                class="item"
+                v-for="(item, index) in songs"
+                :key="item.id"
+                @click="selectMusic(index)"
+              >
                 <div class="item-left">
-                  <div class="item-play"></div>
-                  <p>演员</p>
+                  <div
+                    class="item-play"
+                    @click.stop="play"
+                    v-show="currentIndex === index"
+                  ></div>
+                  <p>{{ item.name }}</p>
                 </div>
                 <div class="item-right">
                   <div class="item-favorite"></div>
-                  <div class="item-del"></div>
-                </div>
-              </li>
-              <li class="item">
-                <div class="item-left">
-                  <div class="item-play"></div>
-                  <p>演员</p>
-                </div>
-                <div class="item-right">
-                  <div class="item-favorite"></div>
-                  <div class="item-del"></div>
-                </div>
-              </li>
-              <li class="item">
-                <div class="item-left">
-                  <div class="item-play" ref="play" @click="play"></div>
-                  <p>演员</p>
-                </div>
-                <div class="item-right">
-                  <div class="item-favorite"></div>
-                  <div class="item-del"></div>
+                  <div class="item-del" @click.stop="del(index)"></div>
                 </div>
               </li>
             </ul>
@@ -73,24 +62,18 @@ import modeType from '../../store/modeType'
 
 export default {
   name: 'ListPlayer',
-  data() {
-    return {
-      isShow: false
-    }
-  },
   methods: {
-    ...mapActions(['setIsPlaying', 'setModeType']),
-
-    // 显示播放列表
-    show() {
-      this.isShow = true
-    },
-
+    ...mapActions([
+      'setIsPlaying',
+      'setModeType',
+      'setListPLayer',
+      'delListSongs',
+      'setCurrentIndex'
+    ]),
     // 关闭播放列表
     hidden() {
-      this.isShow = false
+      this.setListPLayer(false)
     },
-
     /**
      * @description: 播放列表进入动画
      * @param {Object} el 触发动画的元素
@@ -108,7 +91,6 @@ export default {
         }
       )
     },
-
     /**
      * @description: 播放列表离开动画
      * @param {Object} el 触发动画的元素
@@ -126,12 +108,10 @@ export default {
         }
       )
     },
-
     // 修改播放列表的播放图标
     play() {
       this.setIsPlaying(!this.isPlaying)
     },
-
     // 修改播放列表的播放模式
     mode() {
       if (this.modeType === modeType.loop) {
@@ -141,10 +121,34 @@ export default {
       } else if (this.modeType === modeType.random) {
         this.setModeType(modeType.loop)
       }
+    },
+    /**
+     * 删除列表歌曲
+     */
+    del(index) {
+      this.delListSongs(index)
+    },
+    /**
+     * 删除列表所有歌曲
+     */
+    delAll() {
+      this.delListSongs()
+    },
+    /**
+     * 修改播放歌曲
+     */
+    selectMusic(index) {
+      this.setCurrentIndex(index)
     }
   },
   computed: {
-    ...mapGetters(['isPlaying', 'modeType'])
+    ...mapGetters([
+      'isPlaying',
+      'modeType',
+      'isShowListPlayer',
+      'songs',
+      'currentIndex'
+    ])
   },
   watch: {
     // 监听isPlaying是否变化，并修改图标
@@ -167,6 +171,14 @@ export default {
       } else if (newValue === modeType.random) {
         this.$refs.mode.classList.remove('one')
         this.$refs.mode.classList.add('random')
+      }
+    },
+    /**
+     * 监听歌曲列表的显示并刷新滚动高度
+     */
+    isShowListPlayer(newValue, oldValue) {
+      if (newValue) {
+        this.$refs.scrollView.refresh()
       }
     }
   },
@@ -223,6 +235,17 @@ export default {
       }
     }
     .play-middle {
+      height: 700px;
+      overflow: hidden;
+      ul {
+        &.active {
+          .item {
+            .item-play {
+              @include bg_img('../../assets/images/small_pause');
+            }
+          }
+        }
+      }
       .item {
         border-top: 1px solid #ccc;
         height: 100px;
@@ -238,10 +261,7 @@ export default {
             width: 56px;
             height: 56px;
             margin-right: 20px;
-            @include bg_img('../../assets/images/small_pause');
-            &.active {
-              @include bg_img('../../assets/images/small_play');
-            }
+            @include bg_img('../../assets/images/small_play');
           }
           p {
             @include font_size($font_medium_s);

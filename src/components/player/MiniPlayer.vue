@@ -2,18 +2,18 @@
  * @Description: 迷你播放器组件
  * @Autor: wangxin
  * @Date: 2020-06-04 09:36:49
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 22:01:23
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 12:13:08
 -->
 <template>
   <transition v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
     <div class="mini-player" v-show="this.isShowMiniPlayer">
       <div class="player-warpper">
         <div class="player-left" @click="showNormalPlayer">
-          <img src="./1.png" ref="cdImg" alt="" />
+          <img :src="currentSong.picUrl" ref="cdImg" alt="" />
           <div class="player-title">
-            <h3>演员</h3>
-            <p>薛之谦</p>
+            <h3>{{ currentSong.name }}</h3>
+            <p>{{ currentSong.singer }}</p>
           </div>
         </div>
         <div class="player-right">
@@ -33,11 +33,16 @@ import 'velocity-animate/velocity.ui'
 export default {
   name: 'MiniPlayer',
   methods: {
-    ...mapActions(['setFullScreen', 'setMiniPlayer', 'setIsPlaying']),
+    ...mapActions([
+      'setFullScreen',
+      'setMiniPlayer',
+      'setIsPlaying',
+      'setListPLayer'
+    ]),
 
     // 显示播放列表
     showList() {
-      this.$emit('showList')
+      this.setListPLayer(true)
     },
 
     // 显示默认播放器,隐藏mini播放器
@@ -88,7 +93,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isShowMiniPlayer', 'isPlaying'])
+    ...mapGetters(['isShowMiniPlayer', 'isPlaying', 'currentSong'])
   },
   watch: {
     // 监听isPlaying是否发生改变，并修改图标
@@ -139,7 +144,7 @@ export default {
       .player-title {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        // align-items: center;
         justify-content: center;
         h3 {
           @include font_size($font_medium);
@@ -157,9 +162,9 @@ export default {
       .play {
         width: 84px;
         height: 84px;
-        @include bg_img('../../assets/images/pause');
+        @include bg_img('../../assets/images/play');
         &.active {
-          @include bg_img('../../assets/images/play');
+          @include bg_img('../../assets/images/pause');
         }
       }
       .list {

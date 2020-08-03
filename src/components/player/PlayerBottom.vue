@@ -1,10 +1,3 @@
-<!--
- * @Description: 播放器底部组件
- * @Autor: wangxin
- * @Date: 2020-06-04 08:09:13
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-10 16:30:37
--->
 <template>
   <div class="player-bottom">
     <div class="bottom-progress">
@@ -19,9 +12,9 @@
     </div>
     <div class="bottom-control">
       <div class="mode loop" @click="mode" ref="mode"></div>
-      <div class="prev"></div>
+      <div class="prev" @click="prev"></div>
       <div class="play" @click="Play" ref="play"></div>
-      <div class="next"></div>
+      <div class="next" @click="next"></div>
       <div class="favorite"></div>
     </div>
   </div>
@@ -33,14 +26,29 @@ import modeType from '../../store/modeType'
 export default {
   name: 'PlayerBottom',
   methods: {
-    ...mapActions(['setIsPlaying', 'setModeType']),
+    ...mapActions(['setIsPlaying', 'setModeType', 'setCurrentIndex']),
 
-    // 修改默认播放页面播放图标
+    /**
+     * 修改默认播放页面播放图标
+     */
     Play() {
       this.setIsPlaying(!this.isPlaying)
     },
-
-    // 切换播放模式
+    /**
+     * 上一首
+     */
+    prev() {
+      this.setCurrentIndex(this.currentIndex - 1)
+    },
+    /**
+     * 下一首
+     */
+    next() {
+      this.setCurrentIndex(this.currentIndex + 1)
+    },
+    /**
+     * 切换播放模式
+     */
     mode() {
       if (this.modeType === modeType.loop) {
         this.setModeType(modeType.one)
@@ -52,10 +60,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isPlaying', 'modeType'])
+    ...mapGetters(['isPlaying', 'modeType', 'currentIndex'])
   },
   watch: {
-    // 监听isPlaying是否发生改变，并修改图标
+    /**
+     * 监听isPlaying是否发生改变，并修改图标
+     */
     isPlaying(newValue, oldValue) {
       if (newValue) {
         this.$refs.play.classList.add('active')
@@ -63,8 +73,9 @@ export default {
         this.$refs.play.classList.remove('active')
       }
     },
-
-    // 监听modeType的改变，修改图标
+    /**
+     * 监听modeType的改变，修改图标
+     */
     modeType(newValue, oldValue) {
       if (newValue === modeType.loop) {
         this.$refs.mode.classList.remove('random')
@@ -148,9 +159,9 @@ export default {
       @include bg_img('../../assets/images/prev');
     }
     .play {
-      @include bg_img('../../assets/images/pause');
+      @include bg_img('../../assets/images/play');
       &.active {
-        @include bg_img('../../assets/images/play');
+        @include bg_img('../../assets/images/pause');
       }
     }
     .next {

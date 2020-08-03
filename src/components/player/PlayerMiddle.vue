@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-06-01 20:46:33
  * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 21:54:57
+ * @LastEditTime: 2020-06-11 22:33:32
 -->
 <template>
   <div class="">
@@ -11,64 +11,17 @@
       <!-- 封面 -->
       <swiper-slide class="cd">
         <div class="cd-warpper" ref="cdWarpper">
-          <img src="./1.png" alt="" />
+          <img :src="currentSong.picUrl" alt="" />
         </div>
-        <p>我是歌词</p>
+        <p>{{ getFirstLyric() }}</p>
       </swiper-slide>
       <!-- 歌词 -->
       <swiper-slide class="lyric">
         <ScrollView>
           <ul>
-            <li>我是歌词1</li>
-            <li>我是歌词2</li>
-            <li>我是歌词3</li>
-            <li>我是歌词4</li>
-            <li>我是歌词5</li>
-            <li>我是歌词6</li>
-            <li>我是歌词7</li>
-            <li>我是歌词8</li>
-            <li>我是歌词9</li>
-            <li>我是歌词10</li>
-            <li>我是歌词11</li>
-            <li>我是歌词12</li>
-            <li>我是歌词13</li>
-            <li>我是歌词14</li>
-            <li>我是歌词15</li>
-            <li>我是歌词16</li>
-            <li>我是歌词17</li>
-            <li>我是歌词18</li>
-            <li>我是歌词19</li>
-            <li>我是歌词20</li>
-            <li>我是歌词21</li>
-            <li>我是歌词22</li>
-            <li>我是歌词23</li>
-            <li>我是歌词24</li>
-            <li>我是歌词25</li>
-            <li>我是歌词26</li>
-            <li>我是歌词27</li>
-            <li>我是歌词28</li>
-            <li>我是歌词29</li>
-            <li>我是歌词30</li>
-            <li>我是歌词31</li>
-            <li>我是歌词32</li>
-            <li>我是歌词33</li>
-            <li>我是歌词34</li>
-            <li>我是歌词35</li>
-            <li>我是歌词36</li>
-            <li>我是歌词37</li>
-            <li>我是歌词38</li>
-            <li>我是歌词39</li>
-            <li>我是歌词40</li>
-            <li>我是歌词41</li>
-            <li>我是歌词42</li>
-            <li>我是歌词43</li>
-            <li>我是歌词44</li>
-            <li>我是歌词45</li>
-            <li>我是歌词46</li>
-            <li>我是歌词47</li>
-            <li>我是歌词48</li>
-            <li>我是歌词49</li>
-            <li>我是歌词50</li>
+            <li v-for="(value, index) in currentLyric" :key="index">
+              {{ value }}
+            </li>
           </ul>
         </ScrollView>
       </swiper-slide>
@@ -101,8 +54,16 @@ export default {
       }
     }
   },
+  methods: {
+    // 获取第一句歌词
+    getFirstLyric() {
+      for (const key in this.currentLyric) {
+        return this.currentLyric[key]
+      }
+    }
+  },
   computed: {
-    ...mapGetters(['isPlaying'])
+    ...mapGetters(['isPlaying', 'currentSong', 'currentLyric'])
   },
   watch: {
     // 监听isPlaying状态改变

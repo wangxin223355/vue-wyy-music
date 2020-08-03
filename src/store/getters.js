@@ -2,8 +2,8 @@
  * @Description: getters
  * @Autor: wangxin
  * @Date: 2020-06-05 16:29:03
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-10 16:03:46
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 18:56:07
  */
 export default {
   isFullScreen(state) {
@@ -17,5 +17,29 @@ export default {
   },
   modeType(state) {
     return state.modeType
+  },
+  isShowListPlayer(state) {
+    return state.isShowListPlayer
+  },
+  songs(state) {
+    return state.songs
+  },
+  currentSong(state) {
+    let obj = {
+      id: '',
+      name: '',
+      singer: '',
+      picUrl: null
+    }
+    if (state.songs.length !== 0) {
+      obj = state.songs[state.currentIndex]
+    }
+    return obj
+  },
+  currentLyric(state) {
+    return state.currentLyric
+  },
+  currentIndex(state) {
+    return state.currentIndex
   }
 }

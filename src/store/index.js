@@ -3,7 +3,7 @@
  * @Autor: wangxin
  * @Date: 2020-05-28 12:49:58
  * @LastEditors: Seven
- * @LastEditTime: 2020-06-10 16:03:09
+ * @LastEditTime: 2020-06-11 21:56:07
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -21,7 +21,17 @@ const state = {
   // 播放图标的切换
   isPlaying: false,
   // 播放模式
-  modeType: mode.loop
+  modeType: mode.loop,
+  // 列表播放器的显示
+  isShowListPlayer: false,
+  // 歌曲详情
+  songs: [],
+  // 当前播放歌曲
+  currentSong: {},
+  // 当前播放歌曲第几首
+  currentIndex: 0,
+  // 当前播放的歌词
+  currentLyric: {}
 }
 
 export default new Vuex.Store({

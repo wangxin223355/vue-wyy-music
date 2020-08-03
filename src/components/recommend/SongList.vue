@@ -2,8 +2,8 @@
  * @Description: 最新音乐组件
  * @Autor: wangxin
  * @Date: 2020-05-29 15:08:55
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-05 17:04:49
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-06-14 12:23:11
 -->
 <template>
   <div class="songs">
@@ -15,7 +15,7 @@
         v-for="item in songs"
         :key="item.id"
         class="item"
-        @click="selectMusic"
+        @click="selectMusic(item.id)"
       >
         <img v-lazy="item.song.album.picUrl" alt="" />
         <div>
@@ -41,9 +41,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['setFullScreen']),
-    selectMusic() {
+    ...mapActions(['setFullScreen', 'getSongDeatil']),
+    selectMusic(id) {
       this.setFullScreen(true)
+      this.getSongDeatil([id])
     }
   }
 }
