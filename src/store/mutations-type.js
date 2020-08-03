@@ -1,10 +1,3 @@
-/*
- * @Description: mutations-type 常量
- * @Autor: wangxin
- * @Date: 2020-06-05 16:35:26
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 19:04:00
- */
 export const SET_FULL_SCREEN = 'SET_FULL_SCREEN'
 export const SET_MINI_PLAYER = 'SET_MINI_PLAYER'
 export const SET_IS_PLAYING = 'SET_IS_PLAYING'

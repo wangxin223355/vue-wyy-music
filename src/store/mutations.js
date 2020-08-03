@@ -1,10 +1,3 @@
-/*
- * @Description: mutations
- * @Autor: wangxin
- * @Date: 2020-06-05 16:27:39
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 19:17:07
- */
 import {
   SET_FULL_SCREEN,
   SET_MINI_PLAYER,

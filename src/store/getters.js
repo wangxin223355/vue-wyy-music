@@ -1,10 +1,3 @@
-/*
- * @Description: getters
- * @Autor: wangxin
- * @Date: 2020-06-05 16:29:03
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 18:56:07
- */
 export default {
   isFullScreen(state) {
     return state.isFullScreen

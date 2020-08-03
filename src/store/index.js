@@ -1,10 +1,3 @@
-/*
- * @Description: Vuex组件
- * @Autor: wangxin
- * @Date: 2020-05-28 12:49:58
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-11 21:56:07
- */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from './mutations'

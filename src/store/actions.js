@@ -1,10 +1,3 @@
-/*
- * @Description: actions
- * @Autor: wangxin
- * @Date: 2020-06-05 16:28:28
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 19:05:36
- */
 import {
   SET_FULL_SCREEN,
   SET_MINI_PLAYER,

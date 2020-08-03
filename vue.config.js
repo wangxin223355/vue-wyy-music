@@ -1,10 +1,3 @@
-/*
- * @Description: webpack配置
- * @Autor: wangxin
- * @Date: 2020-05-28 13:44:21
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-01 17:49:43
- */
 module.exports = {
   configureWebpack: {
     module: {
