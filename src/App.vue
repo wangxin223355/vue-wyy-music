@@ -1,10 +1,3 @@
-<!--
- * @Description: 主页面
- * @Autor: wangxin
- * @Date: 2020-05-28 12:49:58
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-01 20:10:35
--->
 <template>
   <div id="app">
     <Header></Header>

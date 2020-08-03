@@ -1,19 +1,12 @@
-/*
- * @Description: 项目入口
- * @Autor: wangxin
- * @Date: 2020-05-28 12:49:58
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:17:28
- */
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import fastclick from 'fastclick'
-import './assets/css/base.scss'
 import VueLazyload from 'vue-lazyload'
+import './assets/css/base.scss' // 导入全局 css 样式
 
-// 注册懒加载事件并导入loading时背景图片
+// 注册懒加载事件
 Vue.use(VueLazyload, {
   loading: require('./assets/images/loading2.png')
 })
