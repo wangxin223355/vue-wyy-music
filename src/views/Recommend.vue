@@ -1,10 +1,3 @@
-<!--
- * @Description: 推荐页面
- * @Autor: wangxin
- * @Date: 2020-05-28 16:55:29
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:24:09
--->
 <template>
   <div class="recommend">
     <div class="recommend-container">
@@ -56,10 +49,8 @@ export default {
     }
   },
   created() {
-    // 获取轮播图数据
     getBanner()
       .then(data => {
-        // console.log(data)
         this.banners = data.banners
       })
       .catch(err => {
@@ -97,9 +88,6 @@ export default {
       })
   },
   methods: {
-    /**
-     * @description: 跳转到详情页
-     */
     fatherSelectItem(id, type) {
       this.$router.push({
         path: `recommend/detail/${id}/${type}`

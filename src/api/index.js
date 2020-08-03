@@ -1,10 +1,3 @@
-/*
- * @Description: 处理请求接口
- * @Autor: wangxin
- * @Date: 2020-05-29 09:30:45
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-11 22:37:42
- */
 import Network from './network'
 
 // 轮播图

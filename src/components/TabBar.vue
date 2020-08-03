@@ -1,10 +1,3 @@
-<!--
- * @Description: tab导航组件
- * @Autor: wangxin
- * @Date: 2020-05-28 15:33:08
- * @LastEditors: Seven
- * @LastEditTime: 2020-05-30 15:55:00
--->
 <template>
   <div class="tabbar">
     <router-link tag="div" class="item" to="/recommend">

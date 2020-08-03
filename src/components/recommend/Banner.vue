@@ -1,13 +1,6 @@
-<!--
- * @Description: 轮播图组件
- * @Autor: wangxin
- * @Date: 2020-05-29 09:43:35
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:28:10
--->
 <template>
   <div>
-    <!-- 网络获取的数据建议在swiper上加上v-if="数据.length>0"判断是否加载完成 -->
+    <!-- 网络获取的数据建议在 swiper 上加上 v-if="数据.length>0" 判断是否加载完成 -->
     <swiper
       ref="mySwiper"
       :options="swiperOptions"
@@ -30,7 +23,6 @@ import 'swiper/css/swiper.css'
 export default {
   name: 'Banner',
   props: {
-    /* 接收的轮播图数据 */
     banners: {
       type: Array,
       default() {

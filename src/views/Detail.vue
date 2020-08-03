@@ -1,10 +1,3 @@
-<!--
- * @Description: 歌单详情页
- * @Autor: wangxin
- * @Date: 2020-05-30 15:18:20
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:25:03
--->
 <template>
   <div class="detail">
     <DetailHeader :title="playlist.name"></DetailHeader>

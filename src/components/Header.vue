@@ -1,10 +1,3 @@
-<!--
- * @Description: 头部组件
- * @Autor: wangxin
- * @Date: 2020-05-28 13:57:42
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:34:24
--->
 <template>
   <div class="header" @click="changeTheme">
     <div class="header-left"></div>
@@ -20,14 +13,10 @@ export default {
     return {
       // 换肤主题
       themes: ['theme', 'theme1', 'theme2'],
-      // 当前主题的索引号
       currentThemesIndex: 0
     }
   },
   methods: {
-    /**
-     * @description: 头部换肤
-     */
     changeTheme() {
       this.currentThemesIndex++
       if (this.currentThemesIndex >= this.themes.length) {
@@ -61,11 +50,9 @@ export default {
     margin-top: 8px;
   }
   .header-left {
-    /* 自动获取图片 */
     @include bg_img('../assets/images/logo');
   }
   .header-right {
-    /* 自动获取图片 */
     @include bg_img('../assets/images/account');
   }
   .header-title {
