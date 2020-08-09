@@ -42,9 +42,9 @@ export default {
   name: 'Recommend',
   data() {
     return {
-      banners: [],
-      personalized: [],
-      albums: [],
+      banners: [], // 轮播图
+      personalized: [], // 推荐歌单
+      albums: [], // 最新专辑
       songs: []
     }
   },
@@ -56,21 +56,17 @@ export default {
       .catch(err => {
         console.log(err)
       })
-
     // 获取推荐歌单数据
     getPersonalized()
       .then(data => {
-        // console.log(data.result)
         this.personalized = data.result
       })
       .catch(err => {
         console.log(err)
       })
-
     // 获取最新专辑数据
     getNewAlbum()
       .then(data => {
-        // console.log(data.albums.splice(0, 6))
         this.albums = data.albums.splice(0, 6)
       })
       .catch(err => {
@@ -80,7 +76,6 @@ export default {
     // 获取最新音乐数据
     getNewSong()
       .then(data => {
-        // console.log(data.result)
         this.songs = data.result
       })
       .catch(err => {
@@ -109,7 +104,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  // overflow: hidden;
   .recommend-container {
     width: 100%;
     height: 100%;

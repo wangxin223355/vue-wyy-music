@@ -1,10 +1,3 @@
-<!--
- * @Description: 播放头部组件
- * @Autor: wangxin
- * @Date: 2020-05-28 13:57:42
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-11 21:36:46
--->
 <template>
   <div class="header">
     <div class="header-left" @click="hiddenNormalPlayer"></div>
@@ -22,10 +15,6 @@ export default {
   name: 'PlayerHeader',
   methods: {
     ...mapActions(['setFullScreen', 'setMiniPlayer']),
-
-    /**
-     * @description: 隐藏默认播放器,显示mini播放器
-     */
     hiddenNormalPlayer() {
       this.setFullScreen(false)
       this.setMiniPlayer(true)

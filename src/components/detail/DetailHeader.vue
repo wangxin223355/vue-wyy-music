@@ -1,10 +1,3 @@
-<!--
- * @Description: 歌单详情头部组件
- * @Autor: wangxin
- * @Date: 2020-05-28 13:57:42
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-01 20:14:57
--->
 <template>
   <div class="header" @click="changeTheme">
     <div class="header-left" @click.stop="back"></div>
@@ -18,16 +11,11 @@ export default {
   name: 'DetailHeader',
   data() {
     return {
-      // 换肤主题
       themes: ['theme', 'theme1', 'theme2'],
-      // 当前主题的索引号
       currentThemesIndex: 0
     }
   },
   methods: {
-    /**
-     * @description: 实现换肤效果
-     */
     changeTheme() {
       this.currentThemesIndex++
       if (this.currentThemesIndex >= this.themes.length) {
@@ -38,9 +26,6 @@ export default {
         this.themes[this.currentThemesIndex]
       )
     },
-    /**
-     * @description: 回到上一页
-     */
     back() {
       this.$router.go(-1)
     }

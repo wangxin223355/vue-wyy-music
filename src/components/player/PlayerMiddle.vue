@@ -1,21 +1,12 @@
-<!--
- * @Description: 播放器中间轮播组件
- * @Autor: wangxin
- * @Date: 2020-06-01 20:46:33
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-11 22:33:32
--->
 <template>
   <div class="">
     <swiper :options="swiperOptions" class="banner">
-      <!-- 封面 -->
       <swiper-slide class="cd">
         <div class="cd-warpper" ref="cdWarpper">
           <img :src="currentSong.picUrl" alt="" />
         </div>
         <p>{{ getFirstLyric() }}</p>
       </swiper-slide>
-      <!-- 歌词 -->
       <swiper-slide class="lyric">
         <ScrollView>
           <ul>

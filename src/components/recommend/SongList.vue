@@ -1,10 +1,3 @@
-<!--
- * @Description: 最新音乐组件
- * @Autor: wangxin
- * @Date: 2020-05-29 15:08:55
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 12:23:11
--->
 <template>
   <div class="songs">
     <div class="song-top">
@@ -82,7 +75,7 @@ export default {
       img {
         width: 100px;
         height: 100px;
-        border-radius: 20px;
+        border-radius: 10px;
         margin-right: 20px;
       }
       div {

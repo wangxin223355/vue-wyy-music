@@ -11,10 +11,7 @@ import {
 } from './mutations-type'
 
 export default {
-  /**
-   * @description: 控制默认播放器的显示
-   * @param {Bollean} flag 是否隐藏
-   */
+  // 控制默认播放器的显示
   [SET_FULL_SCREEN](state, flag) {
     state.isFullScreen = flag
     if (flag) {
@@ -22,11 +19,7 @@ export default {
       state.isShowListPlayer = false
     }
   },
-
-  /**
-   * @description: 控制mini播放器的显示
-   * @param {Bollean} flag 是否隐藏
-   */
+  // 控制mini播放器的显示
   [SET_MINI_PLAYER](state, flag) {
     state.isShowMiniPlayer = flag
     if (flag) {
@@ -34,46 +27,27 @@ export default {
       state.isShowListPlayer = false
     }
   },
-
-  /**
-   * @description: 控制播放图标的切换
-   * @param {Bollean} flag 是否播放
-   */
+  // 控制播放图标的切换
   [SET_IS_PLAYING](state, flag) {
     state.isPlaying = flag
   },
-
-  /**
-   * @description: 控制播放模式的切换
-   * @param {Bollean} flag 模式
-   */
+  // 控制播放模式的切换
   [SET_MODE_TYPE](state, flag) {
     state.modeType = flag
   },
-  /**
-   * @description: 控制播放列表的显示
-   * @param {Bollean} flag 是否显示
-   */
+  // 控制播放列表的显示
   [SET_LIST_PLAYER](state, flag) {
     state.isShowListPlayer = flag
   },
-  /**
-   * @description: 获取歌曲数据
-   * @param {Array} list 获取的歌曲数据
-   */
+  // 获取的歌曲数据
   [SET_SONG_DEATIL](state, list) {
     state.songs = list
   },
-  /**
-   * @description: 获取歌词
-   * @param {Array} lyric 获取的歌词数据
-   */
+  //  获取歌词
   [SET_SONG_LYRIC](state, lyric) {
     state.currentLyric = lyric
   },
-  /**
-   * 删除列表歌曲
-   */
+  // 删除列表歌曲
   [DEL_LIST_SONG](state, index) {
     if (index !== undefined) {
       state.songs.splice(index, 1)
@@ -89,9 +63,7 @@ export default {
       state.isFullScreen = false
     }
   },
-  /**
-   * 修改当前播放歌曲
-   */
+  // 修改当前播放歌曲
   [SET_CURRENT_INDEX](state, index) {
     if (index < 0) {
       state.currentIndex = state.songs.length - 1

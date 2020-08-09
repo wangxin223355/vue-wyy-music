@@ -1,10 +1,3 @@
-<!--
- * @Description: 迷你播放器组件
- * @Autor: wangxin
- * @Date: 2020-06-04 09:36:49
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 12:13:08
--->
 <template>
   <transition v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
     <div class="mini-player" v-show="this.isShowMiniPlayer">
@@ -39,18 +32,15 @@ export default {
       'setIsPlaying',
       'setListPLayer'
     ]),
-
     // 显示播放列表
     showList() {
       this.setListPLayer(true)
     },
-
     // 显示默认播放器,隐藏mini播放器
     showNormalPlayer() {
       this.setFullScreen(true)
       this.setMiniPlayer(false)
     },
-
     /**
      * @description: mini播放器进入动画
      * @param {Object} el 触发动画的元素
@@ -68,12 +58,6 @@ export default {
         }
       )
     },
-
-    /**
-     * @description: mini播放器离开动画
-     * @param {Object} el 触发动画的元素
-     * @param {Function} done 动画函数已经执行完毕
-     */
     leave(el, done) {
       Velocity(
         el,
@@ -86,8 +70,6 @@ export default {
         }
       )
     },
-
-    // 修改mini播放器页面的播放图标
     Play() {
       this.setIsPlaying(!this.isPlaying)
     }
@@ -96,7 +78,6 @@ export default {
     ...mapGetters(['isShowMiniPlayer', 'isPlaying', 'currentSong'])
   },
   watch: {
-    // 监听isPlaying是否发生改变，并修改图标
     isPlaying(newValue, oldValue) {
       if (newValue) {
         this.$refs.play.classList.add('active')
@@ -144,7 +125,6 @@ export default {
       .player-title {
         display: flex;
         flex-direction: column;
-        // align-items: center;
         justify-content: center;
         h3 {
           @include font_size($font_medium);

@@ -2,7 +2,6 @@
   <div class="player-bottom">
     <div class="bottom-progress">
       <span>00:00</span>
-      <!-- 进度条 -->
       <div class="progress-bar">
         <div class="progress-line">
           <div class="progress-dot"></div>
@@ -27,28 +26,15 @@ export default {
   name: 'PlayerBottom',
   methods: {
     ...mapActions(['setIsPlaying', 'setModeType', 'setCurrentIndex']),
-
-    /**
-     * 修改默认播放页面播放图标
-     */
     Play() {
       this.setIsPlaying(!this.isPlaying)
     },
-    /**
-     * 上一首
-     */
     prev() {
       this.setCurrentIndex(this.currentIndex - 1)
     },
-    /**
-     * 下一首
-     */
     next() {
       this.setCurrentIndex(this.currentIndex + 1)
     },
-    /**
-     * 切换播放模式
-     */
     mode() {
       if (this.modeType === modeType.loop) {
         this.setModeType(modeType.one)
@@ -63,9 +49,7 @@ export default {
     ...mapGetters(['isPlaying', 'modeType', 'currentIndex'])
   },
   watch: {
-    /**
-     * 监听isPlaying是否发生改变，并修改图标
-     */
+    // 监听isPlaying是否发生改变，并修改图标
     isPlaying(newValue, oldValue) {
       if (newValue) {
         this.$refs.play.classList.add('active')
@@ -73,9 +57,7 @@ export default {
         this.$refs.play.classList.remove('active')
       }
     },
-    /**
-     * 监听modeType的改变，修改图标
-     */
+    // 监听modeType的改变，修改图标
     modeType(newValue, oldValue) {
       if (newValue === modeType.loop) {
         this.$refs.mode.classList.remove('random')

@@ -52,11 +52,6 @@ export default {
         }
       )
     },
-    /**
-     * @description: 默认播放器离开动画
-     * @param {Object} el 触发动画的元素
-     * @param {Function} done 动画函数已经执行完毕
-     */
     leave(el, done) {
       Velocity(
         el,

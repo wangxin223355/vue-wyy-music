@@ -60,7 +60,6 @@ export default {
     line-height: 100px;
     color: #ffffff;
     font-weight: 700;
-    /* 设置字体大小 不会随着屏幕的变化而变化 */
     @include font_size($font_medium);
   }
 }

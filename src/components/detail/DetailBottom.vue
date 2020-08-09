@@ -1,10 +1,3 @@
-<!--
- * @Description: 歌单详情歌曲列表组件
- * @Autor: wangxin
- * @Date: 2020-05-30 17:22:25
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 12:31:53
--->
 <template>
   <ul class="detail-bottom">
     <li class="bottom-top" @click="selectAllMusic">
@@ -38,18 +31,10 @@ export default {
   },
   methods: {
     ...mapActions(['setFullScreen', 'getSongDeatil']),
-
-    /**
-     * @description: 显示默认播放器
-     */
     selectMusic(id) {
-      // this.$store.dispatch('setFullScreen', true)
       this.setFullScreen(true)
       this.getSongDeatil([id])
     },
-    /**
-     * 播放全部
-     */
     selectAllMusic() {
       this.setFullScreen(true)
       const ids = this.playList.map(item => {

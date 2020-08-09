@@ -1,10 +1,3 @@
-<!--
- * @Description: 推荐歌单内容列表组件
- * @Autor: wangxin
- * @Date: 2020-05-29 14:06:35
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-07 11:32:49
--->
 <template>
   <div class="personalized">
     <div class="personalized-top">
@@ -50,10 +43,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * @description: 传递触发事件的id
-     * @param {Number} id id
-     */
     selectItem(id) {
       this.$emit('select', id, this.type)
     }
@@ -92,8 +81,7 @@ export default {
       img {
         width: 200px;
         height: 200px;
-        border-radius: 20px;
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
       }
       p {
         @include clamp(2); // 限制为两行

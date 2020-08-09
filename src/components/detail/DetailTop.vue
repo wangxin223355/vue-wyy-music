@@ -1,10 +1,3 @@
-<!--
- * @Description: 详情页大图片
- * @Autor: wangxin
- * @Date: 2020-05-30 17:06:45
- * @LastEditors: Seven
- * @LastEditTime: 2020-06-01 16:37:25
--->
 <template>
   <div class="detail-top">
     <div class="img-container">
@@ -25,10 +18,7 @@ export default {
     }
   },
   methods: {
-    /**
-     * @description: 改变蒙版的透明度
-     * @param {Number} opacity 透明度值
-     */
+    //  改变蒙版的透明度
     changeMask(opacity) {
       this.$refs.mask.style.opacity = opacity
     }

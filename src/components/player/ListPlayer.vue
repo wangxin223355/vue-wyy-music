@@ -1,10 +1,3 @@
-<!--
- * @Description: 播放列表组件
- * @Autor: wangxin
- * @Date: 2020-06-04 15:11:42
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-14 19:06:05
--->
 <template>
   <transition v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
     <div class="list-player" v-show="isShowListPlayer">
@@ -62,6 +55,9 @@ import modeType from '../../store/modeType'
 
 export default {
   name: 'ListPlayer',
+  components: {
+    ScrollView
+  },
   methods: {
     ...mapActions([
       'setIsPlaying',
@@ -91,11 +87,6 @@ export default {
         }
       )
     },
-    /**
-     * @description: 播放列表离开动画
-     * @param {Object} el 触发动画的元素
-     * @param {Function} done 动画函数已经执行完毕
-     */
     leave(el, done) {
       Velocity(
         el,
@@ -122,21 +113,12 @@ export default {
         this.setModeType(modeType.loop)
       }
     },
-    /**
-     * 删除列表歌曲
-     */
     del(index) {
       this.delListSongs(index)
     },
-    /**
-     * 删除列表所有歌曲
-     */
     delAll() {
       this.delListSongs()
     },
-    /**
-     * 修改播放歌曲
-     */
     selectMusic(index) {
       this.setCurrentIndex(index)
     }
@@ -173,17 +155,12 @@ export default {
         this.$refs.mode.classList.add('random')
       }
     },
-    /**
-     * 监听歌曲列表的显示并刷新滚动高度
-     */
+    // 监听歌曲列表的显示并刷新滚动高度
     isShowListPlayer(newValue, oldValue) {
       if (newValue) {
         this.$refs.scrollView.refresh()
       }
     }
-  },
-  components: {
-    ScrollView
   }
 }
 </script>

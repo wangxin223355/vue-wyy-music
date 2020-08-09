@@ -30,34 +30,31 @@ export default {
     // 获取偏移量
     this.$refs.scrollView.scrolling(offsetY => {
       if (offsetY < 0) {
-        // console.log('向上滚动')
         // const scale = (20 * Math.abs(offsetY)) / defaultHeight // 得到一个越来越大的值
-        // this.$refs.top.$el.style.filter = `blur(${scale}px)` 高斯模糊耗费性能 移动端建议不用
+        // this.$refs.top.$el.style.filter = `blur(${scale}px)` // 高斯模糊耗费性能 移动端建议不用
         // 采用添加蒙版的方式
         const scale = Math.abs(offsetY) / defaultHeight
         this.$refs.top.changeMask(scale)
       } else {
-        // console.log('向下滚动')
         const scale = 1 + offsetY / defaultHeight // 逐渐越来越大于1
         this.$refs.top.$el.style.transform = `scale(${scale})`
       }
     })
   },
   created() {
-    // 获取歌单详情内容
     if (this.$route.params.type === 'personalized') {
+      // 歌单详情
       getPlayList({ id: this.$route.params.id })
         .then(data => {
-          // console.log(data.playlist)
           this.playlist = data.playlist
         })
         .catch(err => {
           console.log(err)
         })
     } else if (this.$route.params.type === 'albums') {
+      // 专辑详情
       getAlbum({ id: this.$route.params.id })
         .then(data => {
-          // console.log(data)
           this.playlist = {
             name: data.album.name,
             coverImgUrl: data.album.picUrl,

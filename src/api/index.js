@@ -2,7 +2,7 @@ import Network from './network'
 
 // 轮播图
 export const getBanner = () => Network.get('banner?type=2')
-// 推荐内容
+// 推荐歌单
 export const getPersonalized = () => Network.get('personalized?limit=6')
 // 最新专辑
 export const getNewAlbum = () => Network.get('album/newest')
