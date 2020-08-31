@@ -4,7 +4,10 @@
       <div class="player-warpper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle></PlayerMiddle>
-        <PlayerBottom :totalTime="totalTime"></PlayerBottom>
+        <PlayerBottom
+          :totalTime="totalTime"
+          :currentTime="currentTime"
+        ></PlayerBottom>
       </div>
       <div class="player-bg">
         <img :src="currentSong.picUrl" alt="" />
@@ -25,6 +28,11 @@ export default {
   name: 'NormalPlayer',
   props: {
     totalTime: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    currentTime: {
       type: Number,
       default: 0,
       required: true
@@ -68,7 +76,7 @@ export default {
   watch: {
     // 监听当前歌曲是否发生了变化
     currentSong(newValue, oldValue) {
-      if (newValue.id === '') {
+      if (newValue.id === undefined) {
         return
       }
       this.getSongLyric(newValue.id)

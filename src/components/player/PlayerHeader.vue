@@ -13,15 +13,15 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'PlayerHeader',
+  computed: {
+    ...mapGetters(['currentSong'])
+  },
   methods: {
     ...mapActions(['setFullScreen', 'setMiniPlayer']),
     hiddenNormalPlayer() {
       this.setFullScreen(false)
       this.setMiniPlayer(true)
     }
-  },
-  computed: {
-    ...mapGetters(['currentSong'])
   }
 }
 </script>

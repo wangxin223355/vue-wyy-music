@@ -7,7 +7,8 @@ import {
   SET_SONG_DEATIL,
   SET_SONG_LYRIC,
   DEL_LIST_SONG,
-  SET_CURRENT_INDEX
+  SET_CURRENT_INDEX,
+  SET_CURRENT_TIME
 } from './mutations-type'
 
 export default {
@@ -72,5 +73,8 @@ export default {
     } else {
       state.currentIndex = index
     }
+  },
+  [SET_CURRENT_TIME](state, time) {
+    state.currTime = time
   }
 }

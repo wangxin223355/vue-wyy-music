@@ -55,7 +55,7 @@ export default {
   li {
     width: 100%;
     height: 100px;
-    padding: 20px;
+    padding: 10px 20px;
     box-sizing: border-box;
     @include bg_sub_color();
     border-bottom: 1px solid #cccccc;
@@ -77,6 +77,9 @@ export default {
     }
   }
   .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     h3 {
       @include font_color();
       @include font_size($font_medium);
@@ -84,7 +87,6 @@ export default {
     p {
       @include font_color();
       @include font_size($font_samll);
-      margin-top: 10px;
       opacity: 0.8;
     }
   }

@@ -25,6 +25,9 @@ import 'velocity-animate/velocity.ui'
 
 export default {
   name: 'MiniPlayer',
+  computed: {
+    ...mapGetters(['isShowMiniPlayer', 'isPlaying', 'currentSong'])
+  },
   methods: {
     ...mapActions([
       'setFullScreen',
@@ -73,9 +76,6 @@ export default {
     Play() {
       this.setIsPlaying(!this.isPlaying)
     }
-  },
-  computed: {
-    ...mapGetters(['isShowMiniPlayer', 'isPlaying', 'currentSong'])
   },
   watch: {
     isPlaying(newValue, oldValue) {

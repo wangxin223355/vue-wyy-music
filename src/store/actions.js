@@ -7,7 +7,8 @@ import {
   SET_SONG_DEATIL,
   SET_SONG_LYRIC,
   DEL_LIST_SONG,
-  SET_CURRENT_INDEX
+  SET_CURRENT_INDEX,
+  SET_CURRENT_TIME
 } from './mutations-type'
 
 import { getSongDetail, getSongLvric, getSongUrl } from '../api/index'
@@ -28,6 +29,7 @@ export default {
   setListPLayer({ commit }, flag) {
     commit(SET_LIST_PLAYER, flag)
   },
+  // 获取歌曲数据
   async getSongDeatil({ commit }, ids) {
     const res = await getSongDetail({ ids: ids.join(',') })
     const urls = await getSongUrl({ id: ids.join(',') })
@@ -52,6 +54,7 @@ export default {
     })
     commit(SET_SONG_DEATIL, list)
   },
+  // 获取歌词
   async getSongLyric({ commit }, id) {
     const result = await getSongLvric({ id })
     const obj = parseLyric(result.lrc.lyric)
@@ -62,8 +65,12 @@ export default {
   },
   setCurrentIndex({ commit }, index) {
     commit(SET_CURRENT_INDEX, index)
+  },
+  setCurrentTime({ commit }, time) {
+    commit(SET_CURRENT_TIME, time)
   }
 }
+
 // 格式化歌词方法
 function parseLyric(lrc) {
   const lyrics = lrc.split('\n')

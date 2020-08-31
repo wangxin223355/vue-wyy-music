@@ -58,6 +58,15 @@ export default {
   components: {
     ScrollView
   },
+  computed: {
+    ...mapGetters([
+      'isPlaying',
+      'modeType',
+      'isShowListPlayer',
+      'songs',
+      'currentIndex'
+    ])
+  },
   methods: {
     ...mapActions([
       'setIsPlaying',
@@ -99,11 +108,11 @@ export default {
         }
       )
     },
-    // 修改播放列表的播放图标
+    // 播放图标
     play() {
       this.setIsPlaying(!this.isPlaying)
     },
-    // 修改播放列表的播放模式
+    // 播放模式
     mode() {
       if (this.modeType === modeType.loop) {
         this.setModeType(modeType.one)
@@ -123,15 +132,6 @@ export default {
       this.setCurrentIndex(index)
     }
   },
-  computed: {
-    ...mapGetters([
-      'isPlaying',
-      'modeType',
-      'isShowListPlayer',
-      'songs',
-      'currentIndex'
-    ])
-  },
   watch: {
     // 监听isPlaying是否变化，并修改图标
     isPlaying(newValue, OldValue) {
@@ -141,7 +141,6 @@ export default {
         this.$refs.play.classList.remove('active')
       }
     },
-
     // 监听modeType的改变，修改图标
     modeType(newValue, oldValue) {
       if (newValue === modeType.loop) {

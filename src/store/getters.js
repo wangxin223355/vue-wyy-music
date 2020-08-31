@@ -29,10 +29,13 @@ export default {
     }
     return obj
   },
+  currentIndex(state) {
+    return state.currentIndex
+  },
   currentLyric(state) {
     return state.currentLyric
   },
-  currentIndex(state) {
-    return state.currentIndex
+  currTime(state) {
+    return state.currTime
   }
 }

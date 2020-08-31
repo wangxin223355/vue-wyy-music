@@ -1,9 +1,12 @@
 <template>
   <div class="player">
-    <NormalPlayer :totalTime="totalTime"></NormalPlayer>
+    <NormalPlayer
+      :totalTime="totalTime"
+      :currentTime="currentTime"
+    ></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer ref="listPlayer"></ListPlayer>
-    <audio :src="currentSong.url" ref="audio"></audio>
+    <audio :src="currentSong.url" ref="audio" @timeupdate="timeupdate"></audio>
   </div>
 </template>
 
@@ -16,7 +19,24 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Player',
   computed: {
-    ...mapGetters(['currentSong', 'isPlaying', 'currentIndex'])
+    ...mapGetters(['currentSong', 'isPlaying', 'currentIndex', 'currTime'])
+  },
+  components: {
+    NormalPlayer,
+    MiniPlayer,
+    ListPlayer
+  },
+  data() {
+    return {
+      totalTime: 0, // 歌曲时长
+      currentTime: 0 // 当前播放时长
+    }
+  },
+  mounted() {
+    // 获取歌曲播放时长
+    this.$refs.audio.oncanplay = () => {
+      this.totalTime = this.$refs.audio.duration
+    }
   },
   watch: {
     isPlaying(newValue, oldValue) {
@@ -28,27 +48,22 @@ export default {
     },
     currentIndex() {
       this.$refs.audio.oncanplay = () => {
+        this.totalTime = this.$refs.audio.duration // 重新获取歌曲时长
         if (this.isPlaying) {
           this.$refs.audio.play()
         } else {
           this.$refs.audio.pause()
         }
       }
+    },
+    currTime(newValue, oldValue) {
+      this.$refs.audio.currentTime = newValue
     }
   },
-  components: {
-    NormalPlayer,
-    MiniPlayer,
-    ListPlayer
-  },
-  data() {
-    return {
-      totalTime: 0
-    }
-  },
-  mounted() {
-    this.$refs.audio.oncanplay = () => {
-      this.totalTime = this.$refs.audio.duration
+  methods: {
+    // 获取当前播放时长
+    timeupdate(e) {
+      this.currentTime = e.target.currentTime
     }
   }
 }

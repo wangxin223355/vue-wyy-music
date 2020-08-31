@@ -29,6 +29,14 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'PlayerMiddle',
+  components: {
+    Swiper,
+    SwiperSlide,
+    ScrollView
+  },
+  computed: {
+    ...mapGetters(['isPlaying', 'currentSong', 'currentLyric'])
+  },
   data() {
     return {
       // swiper轮播图配置
@@ -53,9 +61,6 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapGetters(['isPlaying', 'currentSong', 'currentLyric'])
-  },
   watch: {
     // 监听isPlaying状态改变
     isPlaying(newValue, OLdValue) {
@@ -65,11 +70,6 @@ export default {
         this.$refs.cdWarpper.classList.remove('active')
       }
     }
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-    ScrollView
   }
 }
 </script>
@@ -93,7 +93,7 @@ export default {
       border-radius: 50%;
       border: 30px solid #ffffff;
       overflow: hidden;
-      animation: sport 3s linear infinite;
+      animation: sport 6s linear infinite;
       animation-play-state: paused;
       &.active {
         animation-play-state: running;

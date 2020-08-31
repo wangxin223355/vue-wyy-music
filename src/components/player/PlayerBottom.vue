@@ -1,13 +1,13 @@
 <template>
   <div class="player-bottom">
     <div class="bottom-progress">
-      <span>00:00</span>
-      <div class="progress-bar">
-        <div class="progress-line">
+      <span ref="eleCurrentTime">00:00</span>
+      <div class="progress-bar" @click="progerssClick">
+        <div class="progress-line" ref="progerssLine">
           <div class="progress-dot"></div>
         </div>
       </div>
-      <span>00:00</span>
+      <span ref="eleToatlTime">00:00</span>
     </div>
     <div class="bottom-control">
       <div class="mode loop" @click="mode" ref="mode"></div>
@@ -24,17 +24,39 @@ import { mapGetters, mapActions } from 'vuex'
 import modeType from '../../store/modeType'
 export default {
   name: 'PlayerBottom',
+  computed: {
+    ...mapGetters(['isPlaying', 'modeType', 'currentIndex'])
+  },
+  props: {
+    totalTime: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
+    }
+  },
   methods: {
-    ...mapActions(['setIsPlaying', 'setModeType', 'setCurrentIndex']),
+    ...mapActions([
+      'setIsPlaying',
+      'setModeType',
+      'setCurrentIndex',
+      'setCurrentTime'
+    ]),
     Play() {
       this.setIsPlaying(!this.isPlaying)
     },
+    // 歌曲切换
     prev() {
       this.setCurrentIndex(this.currentIndex - 1)
     },
     next() {
       this.setCurrentIndex(this.currentIndex + 1)
     },
+    // 模式切换
     mode() {
       if (this.modeType === modeType.loop) {
         this.setModeType(modeType.one)
@@ -43,10 +65,43 @@ export default {
       } else if (this.modeType === modeType.random) {
         this.setModeType(modeType.loop)
       }
+    },
+    // 进度条点击
+    progerssClick(e) {
+      // 1.计算进度条的位置
+      const normalLeft = e.target.offsetLeft
+      const eventLeft = e.pageX
+      const clickLeft = eventLeft - normalLeft
+      const progerssWidth = e.target.offsetWidth
+      const value = clickLeft / progerssWidth
+      this.$refs.progerssLine.style.width = value * 100 + '%'
+
+      // 2.计算当前应该从什么时候啊开始播放
+      const currentTime = this.totalTime * value
+      this.setCurrentTime(currentTime)
+    },
+    formartTime(time) {
+      // 2.得到两个时间之间的差值(秒)
+      const differSecond = time
+      // 3.利用相差的总秒数 / 每一天的秒数 = 相差的天数
+      let day = Math.floor(differSecond / (60 * 60 * 24))
+      day = day >= 10 ? day : '0' + day
+      // 4.利用相差的总秒数 / 小时 % 24;
+      let hour = Math.floor((differSecond / (60 * 60)) % 24)
+      hour = hour >= 10 ? hour : '0' + hour
+      // 5.利用相差的总秒数 / 分钟 % 60;
+      let minute = Math.floor((differSecond / 60) % 60)
+      minute = minute >= 10 ? minute : '0' + minute
+      // 6.利用相差的总秒数 % 秒数
+      let second = Math.floor(differSecond % 60)
+      second = second >= 10 ? second : '0' + second
+      return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second
+      }
     }
-  },
-  computed: {
-    ...mapGetters(['isPlaying', 'modeType', 'currentIndex'])
   },
   watch: {
     // 监听isPlaying是否发生改变，并修改图标
@@ -69,6 +124,19 @@ export default {
         this.$refs.mode.classList.remove('one')
         this.$refs.mode.classList.add('random')
       }
+    },
+    // 歌曲时长
+    totalTime(newValue, oldValue) {
+      const time = this.formartTime(newValue)
+      this.$refs.eleToatlTime.innerHTML = time.minute + ':' + time.second
+    },
+    // 播放时长
+    currentTime(newValue, oldValue) {
+      const time = this.formartTime(newValue)
+      this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
+
+      const value = (newValue / this.totalTime) * 100
+      this.$refs.progerssLine.style.width = value + '%'
     }
   }
 }
@@ -97,14 +165,14 @@ export default {
       margin: 0 10px;
       height: 10px;
       background-color: #ffffff;
-      position: relative;
       .progress-line {
-        width: 50%;
+        position: relative;
+        width: 0%; // 控制进度条
         height: 100%;
         background-color: #cccccc;
         .progress-dot {
           position: absolute;
-          left: 50%;
+          left: 100%;
           top: 50%;
           transform: translateY(-50%);
           width: 20px;
