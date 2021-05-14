@@ -5,6 +5,7 @@
 html,
 body {
   width: 100%;
+  // 禁用系统滚动
   height: 100%;
   overflow: hidden;
   // 解决iscroll拖拽卡顿问题

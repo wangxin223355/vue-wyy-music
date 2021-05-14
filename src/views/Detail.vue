@@ -24,26 +24,9 @@ export default {
       playlist: {}
     }
   },
-  mounted() {
-    // 下拉上拉修改背景图片状态
-    const defaultHeight = this.$refs.top.$el.offsetHeight
-    // 获取偏移量
-    this.$refs.scrollView.scrolling(offsetY => {
-      if (offsetY < 0) {
-        // const scale = (20 * Math.abs(offsetY)) / defaultHeight // 得到一个越来越大的值
-        // this.$refs.top.$el.style.filter = `blur(${scale}px)` // 高斯模糊耗费性能 移动端建议不用
-        // 采用添加蒙版的方式
-        const scale = Math.abs(offsetY) / defaultHeight
-        this.$refs.top.changeMask(scale)
-      } else {
-        const scale = 1 + offsetY / defaultHeight // 逐渐越来越大于1
-        this.$refs.top.$el.style.transform = `scale(${scale})`
-      }
-    })
-  },
   created() {
     if (this.$route.params.type === 'personalized') {
-      // 歌单详情
+      // 歌单详情 this.$params.id
       getPlayList({ id: this.$route.params.id })
         .then(data => {
           this.playlist = data.playlist
@@ -66,6 +49,24 @@ export default {
         })
     }
   },
+  mounted() {
+    // 下拉上拉修改背景图片状态
+    const defaultHeight = this.$refs.top.$el.offsetHeight
+    // 获取偏移量
+    this.$refs.scrollView.scrolling(offsetY => {
+      if (offsetY < 0) {
+        // const scale = (20 * Math.abs(offsetY)) / defaultHeight // 得到一个越来越大的值
+        // this.$refs.top.$el.style.filter = `blur(${scale}px)` // 高斯模糊耗费性能 移动端建议不用
+        // 采用添加蒙版的方式
+        const scale = Math.abs(offsetY) / defaultHeight
+        this.$refs.top.changeMask(scale)
+      } else {
+        const scale = 1 + offsetY / defaultHeight // 逐渐越来越大于1
+        this.$refs.top.$el.style.transform = `scale(${scale})`
+      }
+    })
+  },
+
   components: {
     DetailHeader,
     DetailTop,

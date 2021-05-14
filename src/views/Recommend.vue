@@ -1,7 +1,10 @@
 <template>
+  <!-- 可视区域 -->
   <div class="recommend">
+    <!-- 容器区域 -->
     <div class="recommend-container">
       <ScrollView>
+        <!-- 插槽内容 -->
         <div>
           <Banner :banners="banners"></Banner>
           <Personalized
@@ -83,6 +86,7 @@ export default {
       })
   },
   methods: {
+    // 跳转到歌单详情页面
     fatherSelectItem(id, type) {
       this.$router.push({
         path: `recommend/detail/${id}/${type}`
@@ -110,6 +114,7 @@ export default {
     overflow: hidden;
   }
 }
+// 过渡动画
 .v-enter {
   transform: translateX(100%);
 }

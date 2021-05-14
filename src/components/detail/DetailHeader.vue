@@ -27,6 +27,7 @@ export default {
       )
     },
     back() {
+      // window.history.back()
       this.$router.go(-1)
     }
   },

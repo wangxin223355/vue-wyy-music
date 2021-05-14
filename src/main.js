@@ -8,6 +8,7 @@ import './assets/css/base.scss' // 导入全局 css 样式
 
 // 注册懒加载事件
 Vue.use(VueLazyload, {
+  // 设置加载的占位图片
   loading: require('./assets/images/loading.png')
 })
 

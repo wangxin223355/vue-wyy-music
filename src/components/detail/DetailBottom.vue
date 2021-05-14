@@ -1,9 +1,11 @@
 <template>
   <ul class="detail-bottom">
+    <!-- 播放全部 -->
     <li class="bottom-top" @click="selectAllMusic">
       <div class="bottom-icon"></div>
       <div class="bottom-title">播放全部</div>
     </li>
+    <!-- 歌曲列表 -->
     <li
       class="item"
       v-for="item in playList"
@@ -23,9 +25,7 @@ export default {
   props: {
     playList: {
       type: Array,
-      default() {
-        return []
-      },
+      default: () => [],
       required: true
     }
   },
