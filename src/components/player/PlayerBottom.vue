@@ -1,5 +1,6 @@
 <template>
   <div class="player-bottom">
+    <!-- 进度条 -->
     <div class="bottom-progress">
       <span ref="eleCurrentTime">00:00</span>
       <div class="progress-bar" @click="progerssClick">
@@ -9,6 +10,7 @@
       </div>
       <span ref="eleToatlTime">00:00</span>
     </div>
+    <!-- 按钮 -->
     <div class="bottom-control">
       <div class="mode loop" @click="mode" ref="mode"></div>
       <div class="prev" @click="prev"></div>

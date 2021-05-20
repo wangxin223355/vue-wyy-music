@@ -26,7 +26,7 @@ export default {
   },
   created() {
     if (this.$route.params.type === 'personalized') {
-      // 歌单详情 this.$params.id
+      // 歌单详情
       getPlayList({ id: this.$route.params.id })
         .then(data => {
           this.playlist = data.playlist

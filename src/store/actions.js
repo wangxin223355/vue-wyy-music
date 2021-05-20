@@ -1,3 +1,4 @@
+// 导入常量名
 import {
   SET_FULL_SCREEN,
   SET_MINI_PLAYER,

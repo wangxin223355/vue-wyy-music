@@ -1,12 +1,14 @@
 <template>
   <div class="">
     <swiper :options="swiperOptions" class="banner">
+      <!-- 封面 -->
       <swiper-slide class="cd">
         <div class="cd-warpper" ref="cdWarpper">
           <img :src="currentSong.picUrl" alt="" />
         </div>
         <p>{{ getFirstLyric() }}</p>
       </swiper-slide>
+      <!-- 歌词 -->
       <swiper-slide class="lyric">
         <ScrollView>
           <ul>
