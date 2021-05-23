@@ -20,8 +20,12 @@ import NormalPlayer from '../components/player/NormalPlayer'
 import MiniPlayer from '../components/player/MiniPlayer'
 import ListPlayer from '../components/player/ListPlayer'
 import mode from '../store/modeType'
-import { getRandomIntInclusive } from '../tools/tools'
 import { mapGetters, mapActions } from 'vuex'
+import {
+  getRandomIntInclusive,
+  setLocalStorage,
+  getLocalStorage
+} from '../tools/tools'
 
 export default {
   name: 'Player',
@@ -32,7 +36,9 @@ export default {
       'currentIndex',
       'currTime',
       'modeType',
-      'songs'
+      'songs',
+      'favoriteList',
+      'historyList'
     ])
   },
   components: {
@@ -46,6 +52,19 @@ export default {
       currentTime: 0 // 当前播放时长
     }
   },
+  created() {
+    const favoriteList = getLocalStorage('favoriteList')
+    if (favoriteList === null) {
+      return
+    }
+    this.setFavoriteList(favoriteList)
+
+    const historyList = getLocalStorage('historyList')
+    if (historyList === null) {
+      return
+    }
+    this.setHistoryList(historyList)
+  },
   mounted() {
     // 获取歌曲时长
     this.$refs.audio.oncanplay = () => {
@@ -56,6 +75,7 @@ export default {
     // 播放
     isPlaying(newValue, oldValue) {
       if (newValue) {
+        this.setHistorySong(this.currentSong)
         this.$refs.audio.play()
       } else {
         this.$refs.audio.pause()
@@ -65,6 +85,7 @@ export default {
       this.$refs.audio.oncanplay = () => {
         this.totalTime = this.$refs.audio.duration // 重新获取歌曲时长
         if (this.isPlaying) {
+          this.setHistorySong(this.currentSong)
           this.$refs.audio.play()
         } else {
           this.$refs.audio.pause()
@@ -73,10 +94,21 @@ export default {
     },
     currTime(newValue, oldValue) {
       this.$refs.audio.currentTime = newValue
+    },
+    favoriteList(newValue, oldValue) {
+      setLocalStorage('favoriteList', newValue)
+    },
+    historyList(newValue, oldValue) {
+      setLocalStorage('historyList', newValue)
     }
   },
   methods: {
-    ...mapActions(['setCurrentIndex']),
+    ...mapActions([
+      'setCurrentIndex',
+      'setFavoriteList',
+      'setHistorySong',
+      'setHistoryList'
+    ]),
     // 获取当前播放时长
     timeupdate(e) {
       this.currentTime = e.target.currentTime

@@ -16,7 +16,11 @@
       <div class="prev" @click="prev"></div>
       <div class="play" @click="Play" ref="play"></div>
       <div class="next" @click="next"></div>
-      <div class="favorite"></div>
+      <div
+        class="favorite"
+        @click="favorite"
+        :class="{ active: isFavorite(currentSong) }"
+      ></div>
     </div>
   </div>
 </template>
@@ -28,7 +32,13 @@ import { formartTime } from '../../tools/tools'
 export default {
   name: 'PlayerBottom',
   computed: {
-    ...mapGetters(['isPlaying', 'modeType', 'currentIndex'])
+    ...mapGetters([
+      'isPlaying',
+      'modeType',
+      'currentIndex',
+      'currentSong',
+      'favoriteList'
+    ])
   },
   props: {
     totalTime: {
@@ -47,7 +57,8 @@ export default {
       'setIsPlaying',
       'setModeType',
       'setCurrentIndex',
-      'setCurrentTime'
+      'setCurrentTime',
+      'setFavoriteSong'
     ]),
     Play() {
       this.setIsPlaying(!this.isPlaying)
@@ -84,6 +95,15 @@ export default {
       // 2.计算当前应该从什么时候啊开始播放
       const currentTime = this.totalTime * value
       this.setCurrentTime(currentTime)
+    },
+    favorite() {
+      this.setFavoriteSong(this.currentSong)
+    },
+    isFavorite(song) {
+      const res = this.favoriteList.find(currentValue => {
+        return currentValue.id === song.id
+      })
+      return res !== undefined
     }
   },
   watch: {
@@ -203,6 +223,9 @@ export default {
     }
     .favorite {
       @include bg_img('../../assets/images/un_favorite');
+      &.active {
+        @include bg_img('../../assets/images/favorite');
+      }
     }
   }
 }

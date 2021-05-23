@@ -19,5 +19,9 @@ export default {
   // 当前播放的歌词
   currentLyric: {},
   // 进度条点击时间
-  currTime: 0
+  currTime: 0,
+  // 收藏的歌曲
+  favoriteList: [],
+  // 播放历史
+  historyList: []
 }

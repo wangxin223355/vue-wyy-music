@@ -8,7 +8,11 @@ import {
   SET_SONG_LYRIC,
   DEL_LIST_SONG,
   SET_CURRENT_INDEX,
-  SET_CURRENT_TIME
+  SET_CURRENT_TIME,
+  SET_FAVORITE_SONG,
+  SET_FAVORITE_LIST,
+  SET_HISTORY_SONG,
+  SET_HISTORY_LIST
 } from './mutations-type'
 
 export default {
@@ -76,5 +80,30 @@ export default {
   },
   [SET_CURRENT_TIME](state, time) {
     state.currTime = time
+  },
+  [SET_FAVORITE_SONG](state, song) {
+    const res = state.favoriteList.find(item => {
+      return item === song
+    })
+    if (res === undefined) {
+      state.favoriteList.push(song)
+    }
+  },
+  [SET_FAVORITE_LIST](state, list) {
+    state.favoriteList = list
+  },
+  [SET_HISTORY_SONG](state, song) {
+    const res = state.historyList.find(item => {
+      return item === song
+    })
+    if (state.historyList.length > 30) {
+      state.historyList.splice(0, 1)
+    }
+    if (res === undefined) {
+      state.historyList.push(song)
+    }
+  },
+  [SET_HISTORY_LIST](state, list) {
+    state.historyList = list
   }
 }

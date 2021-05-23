@@ -37,5 +37,11 @@ export default {
   },
   currTime(state) {
     return state.currTime
+  },
+  favoriteList(state) {
+    return state.favoriteList
+  },
+  historyList(state) {
+    return state.historyList
   }
 }

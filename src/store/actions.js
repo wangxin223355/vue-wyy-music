@@ -9,7 +9,11 @@ import {
   SET_SONG_LYRIC,
   DEL_LIST_SONG,
   SET_CURRENT_INDEX,
-  SET_CURRENT_TIME
+  SET_CURRENT_TIME,
+  SET_FAVORITE_SONG,
+  SET_FAVORITE_LIST,
+  SET_HISTORY_SONG,
+  SET_HISTORY_LIST
 } from './mutations-type'
 
 import { getSongDetail, getSongLvric, getSongUrl } from '../api/index'
@@ -76,6 +80,18 @@ export default {
   },
   setCurrentTime({ commit }, time) {
     commit(SET_CURRENT_TIME, time)
+  },
+  setFavoriteSong({ commit }, song) {
+    commit(SET_FAVORITE_SONG, song)
+  },
+  setFavoriteList({ commit }, list) {
+    commit(SET_FAVORITE_LIST, list)
+  },
+  setHistorySong({ commit }, song) {
+    commit(SET_HISTORY_SONG, song)
+  },
+  setHistoryList({ commit }, list) {
+    commit(SET_HISTORY_LIST, list)
   }
 }
 
