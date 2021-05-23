@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     ...mapActions(['setFullScreen', 'setMiniPlayer']),
+    // 隐藏默认播放器,显示mini播放器
     hiddenNormalPlayer() {
       this.setFullScreen(false)
       this.setMiniPlayer(true)

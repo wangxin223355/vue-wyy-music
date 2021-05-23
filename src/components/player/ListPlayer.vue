@@ -108,11 +108,9 @@ export default {
         }
       )
     },
-    // 播放图标
     play() {
       this.setIsPlaying(!this.isPlaying)
     },
-    // 播放模式
     mode() {
       if (this.modeType === modeType.loop) {
         this.setModeType(modeType.one)

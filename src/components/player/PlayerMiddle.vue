@@ -9,10 +9,14 @@
         <p>{{ getFirstLyric() }}</p>
       </swiper-slide>
       <!-- 歌词 -->
-      <swiper-slide class="lyric">
-        <ScrollView>
+      <swiper-slide class="lyric " ref="lyric">
+        <ScrollView ref="scrollView">
           <ul>
-            <li v-for="(value, index) in currentLyric" :key="index">
+            <li
+              v-for="(value, key) in currentLyric"
+              :key="key"
+              :class="{ active: currentLineNum === key }"
+            >
               {{ value }}
             </li>
           </ul>
@@ -39,6 +43,13 @@ export default {
   computed: {
     ...mapGetters(['isPlaying', 'currentSong', 'currentLyric'])
   },
+  props: {
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
+    }
+  },
   data() {
     return {
       // swiper轮播图配置
@@ -52,7 +63,8 @@ export default {
         observer: true, // 发生修改时，自动初始化swiper
         observeParents: true, // 当Swiper的父元素变化时，自动更新swiper
         observeSlideChildren: true // 子slide更新时，swiper是否更新
-      }
+      },
+      currentLineNum: '0'
     }
   },
   methods: {
@@ -61,15 +73,70 @@ export default {
       for (const key in this.currentLyric) {
         return this.currentLyric[key]
       }
+    },
+    // 递归查找上对应歌词
+    getActiveLineNum(lineNum) {
+      if (lineNum < 0) {
+        return this.currentLineNum
+      }
+      const result = this.currentLyric[lineNum]
+      if (result === undefined || result === '') {
+        lineNum--
+        return this.getActiveLineNum(lineNum)
+      } else {
+        return lineNum + ''
+      }
     }
   },
   watch: {
-    // 监听isPlaying状态改变
+    // 监听isPlaying状态改变,封面旋转
     isPlaying(newValue, OLdValue) {
       if (newValue) {
         this.$refs.cdWarpper.classList.add('active')
       } else {
         this.$refs.cdWarpper.classList.remove('active')
+      }
+    },
+    currentTime(newValue, OLdValue) {
+      // // 1.歌词高亮同步
+      // const lineNum = Math.floor(newValue) + ''
+      // const result = this.currentLyric[lineNum]
+      // // 歌词的key中存在相同的时间
+      // if (result !== undefined && result !== '') {
+      //   this.currentLineNum = lineNum
+
+      //   // 2.歌词滚动同步
+      //   const currentLyricTop = document.querySelector('li.active').offsetTop
+      //   const lyricHeight = this.$refs.lyric.$el.offsetHeight
+      //   if (currentLyricTop > lyricHeight / 2) {
+      //     // 开始滚动
+      //     this.$refs.scrollView.scrollTo(
+      //       0,
+      //       lyricHeight / 2 - currentLyricTop,
+      //       200
+      //     )
+      //   }
+      // }
+      const lineNum = Math.floor(newValue) + ''
+      this.currentLineNum = this.getActiveLineNum(lineNum)
+      // 2.歌词滚动同步
+      const currentLyricTop = document.querySelector('li.active').offsetTop
+      const lyricHeight = this.$refs.lyric.$el.offsetHeight
+      if (currentLyricTop > lyricHeight / 2) {
+        // 开始滚动
+        this.$refs.scrollView.scrollTo(
+          0,
+          lyricHeight / 2 - currentLyricTop,
+          200
+        )
+      } else {
+        this.$refs.scrollView.scrollTo(0, 0, 200)
+      }
+    },
+    currentLyric(newValue, OLdValue) {
+      for (const key in newValue) {
+        this.currentLineNum = key
+        return
       }
     }
   }
@@ -95,6 +162,7 @@ export default {
       border-radius: 50%;
       border: 30px solid #ffffff;
       overflow: hidden;
+      // 旋转动画
       animation: sport 6s linear infinite;
       animation-play-state: paused;
       &.active {
@@ -119,7 +187,10 @@ export default {
       @include font_color();
       margin: 10px 0;
       &:last-of-type {
-        padding-bottom: 100px;
+        padding-bottom: 50%;
+      }
+      &.active {
+        color: #fff;
       }
     }
   }

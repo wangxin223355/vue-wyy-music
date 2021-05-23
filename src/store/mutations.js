@@ -64,7 +64,7 @@ export default {
       state.isFullScreen = false
     }
   },
-  // 修改当前播放歌曲
+  // 切换歌曲
   [SET_CURRENT_INDEX](state, index) {
     if (index < 0) {
       state.currentIndex = state.songs.length - 1

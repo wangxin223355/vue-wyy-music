@@ -3,7 +3,7 @@
     <!-- 进度条 -->
     <div class="bottom-progress">
       <span ref="eleCurrentTime">00:00</span>
-      <div class="progress-bar" @click="progerssClick">
+      <div class="progress-bar" @click="progerssClick" ref="progerssBar">
         <div class="progress-line" ref="progerssLine">
           <div class="progress-dot"></div>
         </div>
@@ -24,6 +24,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import modeType from '../../store/modeType'
+import { formartTime } from '../../tools/tools'
 export default {
   name: 'PlayerBottom',
   computed: {
@@ -71,38 +72,18 @@ export default {
     // 进度条点击
     progerssClick(e) {
       // 1.计算进度条的位置
-      const normalLeft = e.target.offsetLeft
-      const eventLeft = e.pageX
-      const clickLeft = eventLeft - normalLeft
-      const progerssWidth = e.target.offsetWidth
+      // const normalLeft = e.target.offsetLeft // 进度条距离左边的位置
+      const normalLeft = this.$refs.progerssBar.offsetLeft // 进度条距离左边的位置
+      const eventLeft = e.pageX // 点击的位置距离左边的位置
+      const clickLeft = eventLeft - normalLeft // 进度条的长度
+      // const progerssWidth = e.target.offsetWidth // 进度条的总宽度
+      const progerssWidth = this.$refs.progerssBar.offsetWidth // 进度条的总宽度
       const value = clickLeft / progerssWidth
       this.$refs.progerssLine.style.width = value * 100 + '%'
 
       // 2.计算当前应该从什么时候啊开始播放
       const currentTime = this.totalTime * value
       this.setCurrentTime(currentTime)
-    },
-    formartTime(time) {
-      // 2.得到两个时间之间的差值(秒)
-      const differSecond = time
-      // 3.利用相差的总秒数 / 每一天的秒数 = 相差的天数
-      let day = Math.floor(differSecond / (60 * 60 * 24))
-      day = day >= 10 ? day : '0' + day
-      // 4.利用相差的总秒数 / 小时 % 24;
-      let hour = Math.floor((differSecond / (60 * 60)) % 24)
-      hour = hour >= 10 ? hour : '0' + hour
-      // 5.利用相差的总秒数 / 分钟 % 60;
-      let minute = Math.floor((differSecond / 60) % 60)
-      minute = minute >= 10 ? minute : '0' + minute
-      // 6.利用相差的总秒数 % 秒数
-      let second = Math.floor(differSecond % 60)
-      second = second >= 10 ? second : '0' + second
-      return {
-        day: day,
-        hour: hour,
-        minute: minute,
-        second: second
-      }
     }
   },
   watch: {
@@ -127,16 +108,17 @@ export default {
         this.$refs.mode.classList.add('random')
       }
     },
-    // 歌曲时长
+    // 歌曲总时长
     totalTime(newValue, oldValue) {
-      const time = this.formartTime(newValue)
+      const time = formartTime(newValue)
       this.$refs.eleToatlTime.innerHTML = time.minute + ':' + time.second
     },
     // 播放时长
     currentTime(newValue, oldValue) {
-      const time = this.formartTime(newValue)
+      const time = formartTime(newValue)
       this.$refs.eleCurrentTime.innerHTML = time.minute + ':' + time.second
 
+      // 进度条
       const value = (newValue / this.totalTime) * 100
       this.$refs.progerssLine.style.width = value + '%'
     }

@@ -16,5 +16,5 @@ export const getAlbum = data => Network.get('album', data)
 export const getSongDetail = data => Network.get('song/detail', data)
 // 歌词
 export const getSongLvric = data => Network.get('lyric', data)
-// 歌曲地址
+// 歌曲播放地址
 export const getSongUrl = data => Network.get('song/url', data)

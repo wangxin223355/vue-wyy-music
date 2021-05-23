@@ -1,8 +1,10 @@
+// 生成歌曲列表随机数
 export const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min // 含最大值，含最小值
 }
+// 格式化歌词时间
 export const formartTime = time => {
   // 2.得到两个时间之间的差值(秒)
   const differSecond = time

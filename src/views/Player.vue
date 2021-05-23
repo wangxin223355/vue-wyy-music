@@ -6,7 +6,12 @@
     ></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer ref="listPlayer"></ListPlayer>
-    <audio :src="currentSong.url" ref="audio" @timeupdate="timeupdate"></audio>
+    <audio
+      :src="currentSong.url"
+      ref="audio"
+      @timeupdate="timeupdate"
+      @ended="end"
+    ></audio>
   </div>
 </template>
 
@@ -14,12 +19,21 @@
 import NormalPlayer from '../components/player/NormalPlayer'
 import MiniPlayer from '../components/player/MiniPlayer'
 import ListPlayer from '../components/player/ListPlayer'
-import { mapGetters } from 'vuex'
+import mode from '../store/modeType'
+import { getRandomIntInclusive } from '../tools/tools'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Player',
   computed: {
-    ...mapGetters(['currentSong', 'isPlaying', 'currentIndex', 'currTime'])
+    ...mapGetters([
+      'currentSong',
+      'isPlaying',
+      'currentIndex',
+      'currTime',
+      'modeType',
+      'songs'
+    ])
   },
   components: {
     NormalPlayer,
@@ -33,12 +47,13 @@ export default {
     }
   },
   mounted() {
-    // 获取歌曲播放时长
+    // 获取歌曲时长
     this.$refs.audio.oncanplay = () => {
       this.totalTime = this.$refs.audio.duration
     }
   },
   watch: {
+    // 播放
     isPlaying(newValue, oldValue) {
       if (newValue) {
         this.$refs.audio.play()
@@ -61,9 +76,22 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setCurrentIndex']),
     // 获取当前播放时长
     timeupdate(e) {
       this.currentTime = e.target.currentTime
+    },
+    // 播放模式
+    end() {
+      if (this.modeType === mode.loop) {
+        this.setCurrentIndex(this.currentIndex + 1)
+      } else if (this.modeType === mode.one) {
+        this.$refs.audio.play()
+      } else if (this.modeType === mode.random) {
+        const index = getRandomIntInclusive(0, this.songs.length - 1)
+        console.log(index)
+        this.setCurrentIndex(index)
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="normal-player" v-show="this.isFullScreen">
       <div class="player-warpper">
         <PlayerHeader></PlayerHeader>
-        <PlayerMiddle></PlayerMiddle>
+        <PlayerMiddle :currentTime="currentTime"></PlayerMiddle>
         <PlayerBottom
           :totalTime="totalTime"
           :currentTime="currentTime"
@@ -21,6 +21,7 @@ import PlayerHeader from './PlayerHeader'
 import PlayerMiddle from './PlayerMiddle'
 import PlayerBottom from './PlayerBottom'
 import { mapGetters, mapActions } from 'vuex'
+// 导入Velocity
 import Velocity from 'velocity-animate'
 import 'velocity-animate/velocity.ui'
 
@@ -76,10 +77,11 @@ export default {
   watch: {
     // 监听当前歌曲是否发生了变化
     currentSong(newValue, oldValue) {
-      if (newValue.id === undefined) {
+      if (newValue.id === '') {
         return
       }
       this.getSongLyric(newValue.id)
+      // 修改背景
     }
   },
   components: {
@@ -118,7 +120,7 @@ export default {
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      filter: blur(10px);
+      filter: blur(20px);
     }
   }
 }

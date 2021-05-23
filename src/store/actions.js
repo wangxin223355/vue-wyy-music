@@ -38,7 +38,14 @@ export default {
     // 处理歌曲详情数据
     res.songs.forEach((item, index) => {
       const obj = {}
-      obj.url = urls.data[index].url
+      // 解决歌曲id不对等
+      for (let j = 0; j < urls.data.length; j++) {
+        const value = urls.data[j]
+        if (item.id === value.id) {
+          obj.url = value.url
+          break
+        }
+      }
       obj.id = item.id
       obj.name = item.name
       let singer = ''
