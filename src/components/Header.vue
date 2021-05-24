@@ -2,7 +2,7 @@
   <div class="header" @click="changeTheme">
     <div class="header-left"></div>
     <p class="header-title">网易鱼音乐</p>
-    <div class="header-right"></div>
+    <div class="header-right" @click.stop="accountClick"></div>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
         'data-theme',
         this.themes[this.currentThemesIndex]
       )
+    },
+    accountClick() {
+      this.$router.push('/account')
     }
   }
 }
