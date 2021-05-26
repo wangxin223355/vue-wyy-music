@@ -1,18 +1,37 @@
 <template>
   <transition appear>
     <div class="account">
-      我是用户中心
+      <AccountHeader @switchItem="switchItem"></AccountHeader>
+      <AccountBottom :switchNum="switchNum"></AccountBottom>
     </div>
   </transition>
 </template>
 
 <script>
+import AccountHeader from '../components/Account/AccountHeader'
+import AccountBottom from '../components/Account/AccountBottom'
 export default {
-  name: 'Account'
+  name: 'Account',
+  data() {
+    return {
+      switchNum: 0
+    }
+  },
+  methods: {
+    switchItem(num) {
+      this.switchNum = num
+    }
+  },
+  components: {
+    AccountHeader,
+    AccountBottom
+  }
 }
 </script>
 
 <style scoped lang="scss">
+@import '../assets/css/mixin.scss';
+@import '../assets/css/variable.scss';
 .account {
   position: fixed;
   left: 0;
@@ -20,6 +39,7 @@ export default {
   top: 0;
   bottom: 0;
   background-color: #fff;
+  @include bg_sub_color();
 }
 // 过渡动画
 .v-enter {

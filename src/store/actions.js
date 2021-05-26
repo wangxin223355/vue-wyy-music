@@ -69,7 +69,12 @@ export default {
   // 获取歌词
   async getSongLyric({ commit }, id) {
     const result = await getSongLvric({ id })
-    const obj = parseLyric(result.lrc.lyric)
+    let obj = {}
+    // 是否有歌词
+    if ('lrc' in result) {
+      obj = parseLyric(result.lrc.lyric)
+    }
+    // const obj = parseLyric(result.lrc.lyric)
     commit(SET_SONG_LYRIC, obj)
   },
   delListSongs({ commit }, index) {

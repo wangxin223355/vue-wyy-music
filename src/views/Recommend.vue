@@ -79,7 +79,24 @@ export default {
     // 获取最新音乐数据
     getNewSong()
       .then(data => {
-        this.songs = data.result
+        const list = []
+        data.result.forEach(value => {
+          const obj = {}
+          obj.id = value.id
+          obj.name = value.name
+          obj.picUrl = value.song.album.picUrl
+          let singer = ''
+          for (let i = 0; i < value.song.artists.length; i++) {
+            if (i === 0) {
+              singer = value.song.artists[i].name
+            } else {
+              singer += '-' + value.song.artists[i].name
+            }
+          }
+          obj.singer = singer
+          list.push(obj)
+        })
+        this.songs = list
       })
       .catch(err => {
         console.log(err)
