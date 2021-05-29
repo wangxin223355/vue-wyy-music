@@ -3,12 +3,12 @@
     <div class="song-top">
       <h3>最新音乐</h3>
     </div>
-    <songListItem :songs="songs"></songListItem>
+    <SongListItem :songs="songs"></SongListItem>
   </div>
 </template>
 
 <script>
-import songListItem from '../songListItem'
+import SongListItem from '../SongListItem'
 export default {
   name: 'SongList',
   props: {
@@ -21,7 +21,7 @@ export default {
     }
   },
   components: {
-    songListItem
+    SongListItem
   }
 }
 </script>
