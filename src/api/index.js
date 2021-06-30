@@ -18,6 +18,8 @@ export const getSongDetail = data => Network.get('song/detail', data)
 export const getSongLvric = data => Network.get('lyric', data)
 // 歌曲播放地址
 export const getSongUrl = data => Network.get('song/url', data)
+// 歌手歌曲
+export const getArtistsSongs = data => Network.get('artists', data)
 // 热门歌手
 // export const getHotArtists = () => Network.get('top/artists?offset=0&limit=5')
 export const getHotArtists = () => {
