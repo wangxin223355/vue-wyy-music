@@ -58,7 +58,16 @@ const routes = [
       }
     ]
   },
-  { path: '/rank', component: Rank },
+  {
+    path: '/rank',
+    component: Rank,
+    children: [
+      {
+        path: 'detail/:id/:type',
+        component: Detail
+      }
+    ]
+  },
   { path: '/search', component: Search },
   { path: '/account', component: Account }
 ]
