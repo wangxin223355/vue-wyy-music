@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     selectedItem(id) {
-      console.log(id)
       this.$router.push(`/rank/detail/${id}/rank`)
     }
   },
@@ -71,7 +70,6 @@ export default {
   created() {
     getTopListDetail()
       .then(data => {
-        console.log(data)
         this.category = data
       })
       .catch(function(err) {

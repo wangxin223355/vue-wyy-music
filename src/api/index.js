@@ -145,3 +145,6 @@ export const getTopListDetail = () => {
 }
 // 排行榜歌曲
 export const getTopList = data => Network.get('/playlist/detail', data)
+// 搜索歌曲
+export const getSearchList = data => Network.get('search?type=1', data)
+export const getSearchHot = () => Network.get('search/hot')
