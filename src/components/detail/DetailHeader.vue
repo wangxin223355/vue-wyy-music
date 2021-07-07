@@ -1,31 +1,25 @@
 <template>
-  <div class="header" @click="changeTheme">
-    <div class="header-left" @click.stop="back"></div>
-    <p class="header-title">{{ title }}</p>
-    <div class="header-right"></div>
-  </div>
+  <Header class="header">
+    <template v-slot:left>
+      <div class="header-left" @click.stop="back"></div>
+    </template>
+    <template v-slot:center>
+      <p class="header-title">{{ title }}</p>
+    </template>
+    <template v-slot:right>
+      <div class="header-right"></div>
+    </template>
+  </Header>
 </template>
 
 <script>
+import Header from '../Header'
 export default {
   name: 'DetailHeader',
-  data() {
-    return {
-      themes: ['theme', 'theme1', 'theme2'],
-      currentThemesIndex: 0
-    }
+  components: {
+    Header
   },
   methods: {
-    changeTheme() {
-      this.currentThemesIndex++
-      if (this.currentThemesIndex >= this.themes.length) {
-        this.currentThemesIndex = 0
-      }
-      document.documentElement.setAttribute(
-        'data-theme',
-        this.themes[this.currentThemesIndex]
-      )
-    },
     back() {
       // window.history.back()
       this.$router.go(-1)
@@ -45,20 +39,6 @@ export default {
 @import '../../assets/css/variable.scss';
 @import '../../assets/css/mixin.scss';
 .header {
-  position: relative;
-  z-index: 999;
-  width: 100%;
-  height: 100px;
-  /* @include 指令可以将混入（mixin）引入到文档中 实现了换肤效果 */
-  @include bg_color();
-  display: flex;
-  justify-content: space-between;
-  .header-left,
-  .header-right {
-    width: 84px;
-    height: 84px;
-    margin-top: 8px;
-  }
   .header-left {
     /* 自动获取图片 */
     @include bg_img('../../assets/images/back');

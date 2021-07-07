@@ -1,20 +1,20 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <MainHeader></MainHeader>
     <TabBar></TabBar>
     <router-view></router-view>
     <Player></Player>
   </div>
 </template>
 <script>
-import Header from './components/Header'
+import MainHeader from './components/MainHeader'
 import TabBar from './components/TabBar'
 import Player from './views/Player'
 
 export default {
   name: 'App',
   components: {
-    Header,
+    MainHeader,
     TabBar,
     Player
   }

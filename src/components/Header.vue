@@ -1,8 +1,14 @@
 <template>
   <div class="header" @click="changeTheme">
-    <div class="header-left"></div>
-    <p class="header-title">网易鱼音乐</p>
-    <div class="header-right" @click.stop="accountClick"></div>
+    <div class="left">
+      <slot name="left">左边</slot>
+    </div>
+    <div class="center">
+      <slot name="center">中间</slot>
+    </div>
+    <div class="right">
+      <slot name="right">右边</slot>
+    </div>
   </div>
 </template>
 
@@ -26,9 +32,6 @@ export default {
         'data-theme',
         this.themes[this.currentThemesIndex]
       )
-    },
-    accountClick() {
-      this.$router.push('/account')
     }
   }
 }
@@ -46,24 +49,15 @@ export default {
   @include bg_color();
   display: flex;
   justify-content: space-between;
-  .header-left,
-  .header-right {
+  .left,
+  .right {
     width: 84px;
     height: 84px;
     margin-top: 8px;
-  }
-  .header-left {
-    @include bg_img('../assets/images/logo');
-  }
-  .header-right {
-    @include bg_img('../assets/images/account');
-  }
-  .header-title {
-    text-align: center;
-    line-height: 100px;
-    color: #ffffff;
-    font-weight: 700;
-    @include font_size($font_medium);
+    * {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
